@@ -198,7 +198,7 @@ class CategoryController extends Controller
             },
             'empty_value' => 'None',
             'property' => 'title',
-            'required' => true,
+            'required' => false,
             'label' => 'Parent category'
         ));
     	return $fb->getForm();
