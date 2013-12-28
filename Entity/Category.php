@@ -320,4 +320,60 @@ class Category
     {
         return $this->incomingInvoices;
     }
+
+    /**
+     * Set parent
+     *
+     * @param \Dellaert\DCIMBundle\Entity\Category $parent
+     * @return Category
+     */
+    public function setParent(\Dellaert\DCIMBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Dellaert\DCIMBundle\Entity\Category 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Dellaert\DCIMBundle\Entity\Category $children
+     * @return Category
+     */
+    public function addChildren(\Dellaert\DCIMBundle\Entity\Category $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Dellaert\DCIMBundle\Entity\Category $children
+     */
+    public function removeChildren(\Dellaert\DCIMBundle\Entity\Category $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
 }
