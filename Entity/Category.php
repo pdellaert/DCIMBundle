@@ -68,7 +68,7 @@ class Category
     protected $slug;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Category",inversedBy="children",nullable=true)
+     * @ORM\ManyToOne(targetEntity="Category",inversedBy="children")
      * @Assert\Type(type="Dellaert\DCIMBundle\Entity\Category")
      */
     protected $parent;
