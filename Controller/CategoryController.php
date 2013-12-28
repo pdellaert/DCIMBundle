@@ -3,11 +3,8 @@ namespace Dellaert\DCIMBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\DCIMBundle\Entity\Category;
-use Dellaert\DCIMBundle\Entity\RecursiveCategoryIterator;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use \RecursiveIteratorIterator;
 
 class CategoryController extends Controller
 {
@@ -194,31 +191,16 @@ class CategoryController extends Controller
     {
     	$fb = $this->createFormBuilder($entity);
     	$fb->add('title','text',array('max_length'=>255,'required'=>true,'label'=>'Title'));
-        $fb->add('parent','choice',array(
-            'choices' => $this->getCategoryLevelList(),
+        $fb->add('parent','entity',array(
+            'class' => 'Dellaert\\DCIMBundle\\Entity\\Category',
+            'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('c')->orderBy('c.title','ASC');
+            },
             'empty_value' => 'None',
+            'property' => 'title',
             'required' => false,
             'label' => 'Parent category'
-            ));
+        ));
     	return $fb->getForm();
-    }
-
-    public function getCategoryLevelList($catId=0)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $root_categories = $em->getRepository('DellaertDCIMBundle:Category')->findBy(array('parent' => null));
-
-        $collection = new ArrayCollection($root_categories);
-        $category_iterator = new RecursiveCategoryIterator($collection);
-        $recursive_iterator = new RecursiveIteratorIterator($category_iterator, RecursiveIteratorIterator::SELF_FIRST);
-
-        $list = array();
-
-        foreach ($recursive_iterator as $index => $child_category)
-        {
-            $list[$child_category->getId()] = str_repeat('-', $recursive_iterator->getDepth()) . $child_category->getTitle();
-        }
-
-        return $list;
     }
 }
