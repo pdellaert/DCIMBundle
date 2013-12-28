@@ -246,6 +246,10 @@ class StatisticsController extends Controller
     	}
     	return $this->render('DellaertDCIMBundle:Statistics:vatbyyear.html.twig',array('year'=>$year,'invoices'=>$invoices,'total'=>number_format($total,'2','.',''),'totalVat'=>number_format($totalVat,'2','.',''),'perCompany'=>$perCompany,'perQuarter'=>$perQuarter));
     }
+
+    public function activityAction() {
+        return $this->render('DellaertDCIMBundle:Statistics:lastactivity.html.twig');
+    }
     
     public function lastActivityAction($mode, $back) {
     	switch($mode) {

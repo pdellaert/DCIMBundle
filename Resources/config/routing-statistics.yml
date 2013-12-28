@@ -31,3 +31,7 @@ CompanyLastActivity:
     defaults: { _controller: DellaertDCIMBundle:Statistics:lastActivity}
     requirements:
         back: \d+
+
+CompanyActivity:
+    pattern: /activity/
+    defaults: { _controller: DellaertDCIMBundle:Statistics:activity}

@@ -1,13 +1,13 @@
 <script type="text/javascript">
 	$(function() {
-		$("#subtabbuttons").tabs("#panes > div", { 
+		$("#subsubtabbuttons").tabs("#panes > div", { 
 			effect: 'ajax',
 			initialIndex: null
 		});
 	});
 </script>
 {% spaceless %}
-<div id="subtabbuttons">
+<div id="subsubtabbuttons">
    	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': back+1 }) }}" class="button left">Previous {{ mode }}</a>
    	{% if back > 0 %}
 	   	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': 0 }) }}" class="button left">Current {{ mode }}</a>
