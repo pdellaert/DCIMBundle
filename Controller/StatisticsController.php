@@ -248,7 +248,7 @@ class StatisticsController extends Controller
     }
 
     public function activityAction() {
-        return $this->render('DellaertDCIMBundle:Statistics:lastactivity.html.twig');
+        return $this->render('DellaertDCIMBundle:Statistics:activity.html.twig');
     }
     
     public function lastActivityAction($mode, $back) {
