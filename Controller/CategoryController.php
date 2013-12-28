@@ -7,6 +7,7 @@ use Dellaert\DCIMBundle\Entity\RecursiveCategoryIterator;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use \RecursiveIteratorIterator;
 
 class CategoryController extends Controller
 {
