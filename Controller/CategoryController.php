@@ -195,7 +195,7 @@ class CategoryController extends Controller
             'query_builder' => function(EntityRepository $er) {
                 return $er->createQueryBuilder('c')->orderBy('c.title','ASC');
             },
-            'empty_value' => 'None'
+            'empty_value' => 'None',
             'property' => 'title',
             'required' => true,
             'label' => 'Parent category'
