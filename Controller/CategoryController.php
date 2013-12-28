@@ -74,13 +74,14 @@ class CategoryController extends Controller
 		$data['total'] = $total;
 		$data['rows'] = array();
 		foreach($results as $entity) {
-            $parent = 'None';
-            if( !empty($entity->getParent()) ) {
-                $parent = $entity->getParent()->getTitle();
+            $parent = $entity->getParent();
+            $parentTitle = 'None';
+            if( !empty($parent) ) {
+                $parentTitle = $entity->getParent()->getTitle();
             }
 			$data['rows'][] = array(
 				'id' => $entity->getSlug(),
-				'cell' => array($entity->getTitle(),$parent)
+				'cell' => array($entity->getTitle(),$parentTitle)
 			);
 		}
 
