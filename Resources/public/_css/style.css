@@ -308,11 +308,13 @@ tr:last-child td.last {
 #subtabbuttons {
 	width: auto !important;
 	float: right;
+	margin-bottom: 5px;
 }
 
 #subsubtabbuttons {
 	width: auto !important;
 	float: right;
+	margin-bottom: 5px;
 }
 
 #panes {
