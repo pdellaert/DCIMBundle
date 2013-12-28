@@ -216,7 +216,7 @@ class CategoryController extends Controller
 
         foreach ($recursive_iterator as $index => $child_category)
         {
-            $list[$child_category->getId()] = str_repeat('&nbsp;&nbsp;', $recursive_iterator->getDepth()) . $child_category->getTitle();
+            $list[$child_category->getId()] = str_repeat('-', $recursive_iterator->getDepth()) . $child_category->getTitle();
         }
 
         return $list;
