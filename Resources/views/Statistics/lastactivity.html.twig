@@ -1,11 +1,13 @@
 <script type="text/javascript">
 	$(function() {
-		$("#subsubtabbuttons").tabs("#panes > div", { 
+		$("#subsubtabbuttons").tabs("#subpanes > div", { 
 			effect: 'ajax',
 			initialIndex: null
 		});
 	});
 </script>
+{% endspaceless %}
+<div class="clearfix"></div>
 {% spaceless %}
 <div id="subsubtabbuttons">
    	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': back+1 }) }}" class="button left">Previous {{ mode }}</a>
