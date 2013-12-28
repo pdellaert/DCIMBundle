@@ -4,6 +4,7 @@ namespace Dellaert\DCIMBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\DCIMBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
 
 class CategoryController extends Controller
 {
