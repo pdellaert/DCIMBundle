@@ -74,7 +74,7 @@ class CategoryController extends Controller
 		$data['total'] = $total;
 		$data['rows'] = array();
 		foreach($results as $entity) {
-            $parent = 'None'
+            $parent = 'None';
             if( !empty($entity->getParent()) ) {
                 $parent = $entity->getParent()->getTitle();
             }
