@@ -1,0 +1,40 @@
+IncomingInvoiceList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:list}
+
+IncomingInvoiceListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:listData}
+
+IncomingInvoiceAdd:
+    pattern: /add/
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:add}
+
+IncomingInvoiceEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:edit}
+    requirements:
+        id: \d+
+
+IncomingInvoiceDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:delete}
+    requirements:
+        id: \d+
+
+IncomingInvoiceViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:view}
+
+IncomingInvoiceSetPayed:
+    pattern: /{status}/{id}
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:payed}
+    requirements:
+        status: payed|unpayed
+        id: \d+
+
+IncomingInvoiceDownload:
+    pattern: /download/{id}
+    defaults: { _controller: DellaertDCIMBundle:IncomingInvoice:download}
+    requirements:
+        id: \d+

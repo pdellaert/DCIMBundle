@@ -1,0 +1,52 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this category?') ) {
+					window.location = "{{ path('CategoryDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('CategoryEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+	    <h1>Category: {{ entity.title }}</h1>
+	    <h2>Outgoing Invoices</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Invoice number</th>
+	    		<th>Title</th>
+	    		<th>Origin company</th>
+	    		<th>Target company</th>
+	    		<th>Project</th>
+	    	</tr>
+	    	{% for invoice in entity.outgoingInvoices %}
+		    	<tr>
+		    		<td width="15%">{{ invoice.invoiceNumber }}</td>
+		    		<td>{{ invoice.title }}</td>
+		    		<td>{{ invoice.originCompany.companyName }}</td>
+		    		<td>{{ invoice.project.company.companyName }}</td>
+		    		<td>{{ invoice.project.title }}</td>
+		    	</tr>
+	    	{% endfor %}
+	    </table>
+	    <h2>Incoming Invoices</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Invoice number</th>
+	    		<th>Title</th>
+	    		<th>Target company</th>
+	    	</tr>
+	    	{% for invoice in entity.incomingInvoices %}
+		    	<tr>
+		    		<td>{{ invoice.invoiceNumber }}</td>
+		    		<td>{{ invoice.title }}</td>
+		    		<td>{{ invoice.targetCompany.companyName }}</td>
+		    	</tr>
+	    	{% endfor %}
+	    </table>
+	{% else %}
+		<h1>Unknown category</h1>
+		<p>The specified category is not available.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+ProjectList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:Project:list}
+        
+ProjectListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:Project:listData}
+
+ProjectAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertDCIMBundle:Project:add, id: -1}
+    requirements:
+        id: \d+
+
+ProjectEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:Project:edit}
+    requirements:
+        id: \d+
+
+ProjectDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:Project:delete}
+    requirements:
+        id: \d+
+
+ProjectViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:Project:view}

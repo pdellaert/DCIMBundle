@@ -1,0 +1,196 @@
+<script type="text/javascript">
+	$(function() {
+		$("#subtabbuttons").tabs("#panes > div", { 
+			effect: 'ajax',
+			initialIndex: null
+		});
+	});
+</script>
+{% spaceless %}
+<div id="subtabbuttons">
+   	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': back+1 }) }}" class="button left">Previous {{ mode }}</a>
+   	{% if back > 0 %}
+	   	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': 0 }) }}" class="button left">Current {{ mode }}</a>
+	   	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': back-1 }) }}" class="button right">Next {{ mode }}</a>
+   	{% else %}
+	   	<a href="{{ path('CompanyLastActivity', { 'mode': mode, 'back': 0 }) }}" class="button right">Current {{ mode }}</a>
+   	{% endif %}
+</div>
+{% endspaceless %}
+<h2>Activity during period ({{ mode }}): {{ start.format('Y-m-d') }}{% if mode != 'day' %} - {{ end.format('Y-m-d') }}{% endif %}</h2>
+<script type="text/javascript">
+	var chart;
+	$(document).ready(function() {
+		chart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'lastweekactivitygraphs',
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
+			},
+			credits: {
+				enabled: false
+			},
+			title: {
+				text: 'Activity per project and issue'
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ this.y;
+				}
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						color: '#4a4a4a',
+						connectorColor: '#4a4a4a',
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>';
+						}
+					}
+				}
+			},
+		    series: [{
+				type: 'pie',
+				name: 'Activity per project',
+				data: [
+					{% for project,value in perProject %}
+						['{{ project }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [250,100],
+		    	size: 170
+			}, {
+				type: 'pie',
+				name: 'Activity per issue',
+				data: [
+					{% for issue,value in perIssue %}
+						['{{ issue }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [650,100],
+		    	size: 170
+			}]
+		});
+		chart2 = new Highcharts.Chart({
+			chart: {
+				renderTo: 'lastweekactivitygraphs2',
+				defaultSeriesType: 'spline'
+			},
+			credits: {
+				enabled: false
+			},
+			legend: {
+				enabled: false
+			},
+			title: {
+				text: 'Activity per day'
+			},
+			xAxis: {
+				categories: [
+					{% for day,value in perDay %}
+						'{{ day }}',
+					{% endfor %}
+				]
+			},
+			yAxis: {
+				title: {
+					text: 'Activity'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#4a4a4a'
+				}]
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.series.name +'</b><br />' + this.x + ': ' + this.y;
+				}
+			},
+		    series: [{
+			    name: 'Activity',
+				data: [
+					{% for day,value in perDay %}
+						{{ value }},
+					{% endfor %}
+				]
+			}]
+		});
+		chart3 = new Highcharts.Chart({
+			chart: {
+				renderTo: 'lastweekactivitygraphs3',
+				defaultSeriesType: 'spline'
+			},
+			credits: {
+				enabled: false
+			},
+			legend: {
+				enabled: false
+			},
+			title: {
+				text: 'Income per day'
+			},
+			xAxis: {
+				categories: [
+					{% for day,value in perDayAmount %}
+						'{{ day }}',
+					{% endfor %}
+				]
+			},
+			yAxis: {
+				title: {
+					text: 'Activity'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#4a4a4a'
+				}]
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.series.name +'</b><br />' + this.x + ': ' + this.y + ' euro';
+				}
+			},
+		    series: [{
+			    name: 'Income (euro)',
+				data: [
+					{% for day,value in perDayAmount %}
+						{{ value }},
+					{% endfor %}
+				]
+			}]
+		});
+	});
+</script>
+{% if mode != "day" %}
+	<div id="lastweekactivitygraphs2" style="width: 90%; height: 300px; margin: 0 auto;"></div>
+	<div id="lastweekactivitygraphs3" style="width: 90%; height: 300px; margin: 0 auto;"></div>
+{% endif %}
+<div id="lastweekactivitygraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
+<table cellspacing="0" class="sortable">
+ 	<tr>
+		<th>Issue</th>
+		<th>Project</th>
+		<th width="12%" class="textright">Amount</th>
+		<th width="12%" class="textright">Revenue</th>
+	</tr>
+	{% for entry in issues %}
+		<tr>
+			<td><a href="{{ path('IssueViewId', { 'id': entry.id }) }}">#{{ entry.id }} - {{ entry.title }}</a></td>
+			<td><a href="{{ path('CompanyViewSlug', { 'slug': entry.project.company.slug }) }}">{{ entry.project.company.companyName }}</a> - <a href="{{ path('ProjectViewSlug', { 'slug': entry.project.slug }) }}">{{ entry.project.title }}</a></td>
+			<td class="textright">{{ allIssues[entry.id] }}</td>
+			<td class="textright">{{ allIssuesRevenue[entry.id] }}</td>
+		</tr>
+	{% endfor %}
+	{% if mode != 'year' %}
+		<tr>
+			<th colspan="3" class="textright">Total</th>
+			<th class="textright">{{ totalRevenue }}</th>
+		</tr>
+	{% endif %}
+</table>

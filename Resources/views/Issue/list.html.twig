@@ -1,0 +1,42 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+    <div id="entitybuttons"><a href="{{ path('IssueAdd') }}" class="button add">Add</a></div>
+    <h1>Issues</h1>
+    <script type="text/javascript">
+	    $(function() {
+	    	$(".entitytable").flexigrid({
+	        	url: '{{ path('IssueListData') }}',
+	            dataType: 'json',
+	            colModel : [
+	                {display: 'ID', name : 'id', width : 50, sortable : true, align: 'left'},
+	                {display: 'Issue', name : 'title', width : 300, sortable : true, align: 'left'},
+	                {display: 'Project', name : 'project', width : 210, sortable : false, align: 'left'},
+	                {display: 'Rate', name : 'rate', width : 200, sortable : true, align: 'left'}
+	            ],
+	            searchitems : [
+	                {display: 'ID', name : 'id', isdefault: true},
+	                {display: 'Issue', name : 'title'},
+	                {display: 'Rate', name : 'rate'}
+	            ],
+	            sortname: "title",
+	            sortorder: "asc",
+	            usepager: true,
+	            useRp: true,
+	            rp: 20,
+	            showTableToggleBtn: false,
+	            showToggleBtn: false,
+	            resizable: false,
+	            width: 808,
+	            height: 'auto',
+	            singleSelect: true
+	        });
+		});
+
+	    $('.flexigrid tr[id*="row"]').live('click', function(){
+	    	window.location = '{{ path('IssueList') }}' + $(this).attr('id').substr(3);
+	    });
+    </script>
+    
+    <table class="entitytable"></table> 
+{% endblock %}

@@ -1,0 +1,56 @@
+OutgoingInvoiceList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:list}
+
+OutgoingInvoiceListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:listData}
+
+OutgoingInvoiceAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:add, id: -1}
+    requirements:
+        id: \d+
+
+OutgoingInvoiceEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:edit}
+    requirements:
+        id: \d+
+
+OutgoingInvoiceDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:delete}
+    requirements:
+        id: \d+
+
+OutgoingInvoiceViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:view}
+
+OutgoingInvoiceSetPayed:
+    pattern: /{status}/{id}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:payed}
+    requirements:
+        status: payed|unpayed
+        id: \d+
+
+OutgoingInvoiceGenerate:
+    pattern: /generate/{id}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:generate}
+    requirements:
+        id: \d+
+
+OutgoingInvoiceDownload:
+    pattern: /download/{id}/{type}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:download}
+    requirements:
+        type: tex|pdf
+        id: \d+
+
+OutgoingInvoiceGroupEntries:
+    pattern: /group/{id}
+    defaults: { _controller: DellaertDCIMBundle:OutgoingInvoice:groupEntries}
+    requirements:
+        id: \d+
+        method: POST

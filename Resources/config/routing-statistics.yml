@@ -1,0 +1,33 @@
+CompanyOpenInvoice:
+    pattern: /openinvoices/{id}
+    defaults: { _controller: DellaertDCIMBundle:Statistics:openInvoices}
+    requirements:
+        id: \d+
+
+CompanyRevenueExpenses:
+    pattern: /revenueexpenses
+    defaults: { _controller: DellaertDCIMBundle:Statistics:revenueExpenses}
+
+CompanyVat:
+    pattern: /vat
+    defaults: { _controller: DellaertDCIMBundle:Statistics:vat}
+
+CompanyRevenueExpensesByYear:
+    pattern: /revenueexpensesbyyear/{id}/{year}
+    defaults: { _controller: DellaertDCIMBundle:Statistics:revenueExpensesByYear}
+    requirements:
+        id: \d+
+        year: \d+
+
+CompanyVatByYear:
+    pattern: /vatbyyear/{id}/{year}
+    defaults: { _controller: DellaertDCIMBundle:Statistics:vatByYear}
+    requirements:
+        id: \d+
+        year: \d+
+
+CompanyLastActivity:
+    pattern: /lastactivity/{mode}/{back}
+    defaults: { _controller: DellaertDCIMBundle:Statistics:lastActivity}
+    requirements:
+        back: \d+

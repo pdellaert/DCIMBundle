@@ -1,0 +1,19 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if form is defined %}
+	    <h1>Add issue</h1>
+	    <form action="{{ path('IssueAdd', { 'id': id }) }}" method="post" {{ form_enctype(form) }}>
+	    	{{ form_widget(form) }}
+	    	<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Clear" /><a href="{{ app.session.get('return_url') }}" class="button right delete">Cancel</a>
+	    </form>
+    {% elseif entity is defined %}
+    	<script type="text/javascript">
+    	setTimeout(function() {
+    		  window.location.href = "{{ app.session.get('return_url') }}";
+    		}, 3000);
+    	</script>
+    	<h1>Issue added: {{ entity.title }}</h1>
+    	<p>You will be returned to the issue list in 3 seconds...</p>
+    {% endif %}
+{% endblock %}

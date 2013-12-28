@@ -1,0 +1,31 @@
+IssueList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:Issue:list}
+        
+IssueListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:Issue:listData}
+
+IssueAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertDCIMBundle:Issue:add, id: -1}
+    requirements:
+        id: \d+
+
+IssueEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:Issue:edit}
+    requirements:
+        id: \d+
+
+IssueDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:Issue:delete}
+    requirements:
+        id: \d+
+
+IssueViewId:
+    pattern: /{id}
+    defaults: { _controller: DellaertDCIMBundle:Issue:view}
+    requirements:
+        id: \d+

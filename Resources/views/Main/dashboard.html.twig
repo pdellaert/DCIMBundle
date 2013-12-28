@@ -1,0 +1,59 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if app.user %}
+		{% if app.user.company %}
+			{% set company = app.user.company %}
+			<script type="text/javascript">
+				$.tools.tabs.addEffect("ajax", function(i, done) {
+					this.getPanes().eq(0).slideUp(250);
+					this.getPanes().eq(0).load(this.getTabs().eq(i).attr("href"));
+					this.getPanes().eq(0).slideDown(1000);
+					done.call();
+				});
+				$(function() {
+					$("#tabbuttons").tabs("#panes > div", { 
+						effect: 'ajax'
+					});
+				});
+			</script> 
+			<div id="entitybuttons"><a href="{{ path('CompanyEdit',{ 'id': company.id }) }}" class="button">Edit</a></div>
+		    <h1>Own company: {{ company.companyName }}</h1>
+		    <table cellspacing="0">
+		    	<tr>
+		    		<th rowspan="3" width="20%">Address</th>
+		    		<td rowspan="3" width="30%">
+		    			{{ company.street }} {{ company.streetnumber }}<br />
+		    			{{ company.postalcode }} {{ company.city }}<br />
+		    			{{ company.country }}
+		    		</td>
+		    		<th width="20%">Telephone</th>
+		    		<td width="30%">{{ company.centralTelephone }}</td>
+		    	</tr>
+		    	<tr>
+		    		<th>E-mail</th>
+		    		<td>{{ company.centralEmail }}</td>
+		    	</tr>
+		    	<tr>
+		    		<th>VAT</th>
+		    		<td>{{ company.vatNumber }}</td>
+		    	</tr>
+		    </table>
+		    {% spaceless %}
+		    <div id="tabbuttons">
+		    	<a href="{{ path('CompanyOpenInvoice', { 'id': company.id }) }}" class="button left">Open invoices</a>
+		    	<a href="{{ path('CompanyRevenueExpenses') }}" class="button middle">Revenue/Expenses</a>
+		    	<a href="{{ path('CompanyVat') }}" class="button middle">VAT</a>
+			   	<a href="{{ path('CompanyLastActivity', { 'mode': 'day', 'back': 0 }) }}" class="button middle">Activity per day</a>
+			   	<a href="{{ path('CompanyLastActivity', { 'mode': 'week', 'back': 0 }) }}" class="button middle">Activity per week</a>
+			   	<a href="{{ path('CompanyLastActivity', { 'mode': 'month', 'back': 0 }) }}" class="button middle">Activity per month</a>
+			   	<a href="{{ path('CompanyLastActivity', { 'mode': 'year', 'back': 0 }) }}" class="button right">Activity per year</a>
+		    </div>
+		    {% endspaceless %}
+		    <div class="clearfix"></div>
+		    <div id="panes">
+		    	<div></div>
+			</div>
+		{% endif %}
+	{% endif %}
+{% endblock %}

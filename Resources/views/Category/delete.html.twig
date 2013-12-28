@@ -1,0 +1,16 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+    	<script type="text/javascript">
+    	setTimeout(function() {
+    		  window.location.href = "{{ path('CategoryList') }}";
+    		}, 3000);
+    	</script>
+    	<h1>Category deleted: {{ entity.title }}</h1>
+    	<p>You will be returned to the category list in 3 seconds...</p>
+    {% else %}
+		<h1>Unknown category</h1>
+		<p>The specified category is not available.</p>
+    {% endif %}
+{% endblock %}

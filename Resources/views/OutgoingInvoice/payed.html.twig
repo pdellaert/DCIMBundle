@@ -1,0 +1,16 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+	    <script type="text/javascript">
+	    setTimeout(function() {
+	    	  window.location.href = "{{ path('OutgoingInvoiceViewSlug',{ 'slug': entity.slug }) }}";
+	    	}, 1000);
+	    </script>
+	    <h1>Outgoing invoice payed status changed: {{ entity.invoiceNumber }} - {{ entity.title }}</h1>
+	    <p>You will be returned to the outgoing invoice's page in 1 second...</p>
+    {% else %}
+		<h1>Unknown outgoing invoice</h1>
+		<p>The specified outgoing invoice is not available.</p>
+    {% endif %}
+{% endblock %}

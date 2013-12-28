@@ -1,0 +1,22 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if form is defined %}
+	    <h1>Edit company: {{ entity.companyName }}</h1>
+	    <form action="{{ path('CompanyEdit', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+	    	{{ form_widget(form) }}
+	    	<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Reset" /><a href="{{ path('CompanyViewSlug',{ 'slug': entity.slug }) }}" class="button right delete">Cancel</a>
+	    </form>
+    {% elseif entity is defined %}
+    	<script type="text/javascript">
+    	setTimeout(function() {
+    		  window.location.href = "{{ path('CompanyViewSlug',{ 'slug': entity.slug }) }}";
+    		}, 3000);
+    	</script>
+    	<h1>Company changed: {{ entity.companyName }}</h1>
+    	<p>You will be returned to the company's page in 3 seconds...</p>
+    {% else %}
+		<h1>Unknown company</h1>
+		<p>The specified company is not available.</p>
+    {% endif %}
+{% endblock %}

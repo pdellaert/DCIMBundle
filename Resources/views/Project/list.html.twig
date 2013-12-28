@@ -1,0 +1,42 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+    <div id="entitybuttons"><a href="{{ path('ProjectAdd') }}" class="button add">Add</a></div>
+    <h1>Projects</h1>
+    <script type="text/javascript">
+	    $(function() {
+	    	$(".entitytable").flexigrid({
+	        	url: '{{ path('ProjectListData') }}',
+	            dataType: 'json',
+	            colModel : [
+	                {display: 'Project', name : 'title', width : 290, sortable : true, align: 'left'},
+	                {display: 'Company', name : 'company', width : 190, sortable : false, align: 'left'},
+	                {display: 'Rate', name : 'rate', width : 140, sortable : true, align: 'left'},
+	                {display: 'VAT', name : 'vat', width : 140, sortable : true, align: 'left'}
+	            ],
+	            searchitems : [
+	                {display: 'Project', name : 'title', isdefault: true},
+	                {display: 'Rate', name : 'rate'},
+	                {display: 'VAT', name : 'vat'}
+	            ],
+	            sortname: "title",
+	            sortorder: "asc",
+	            usepager: true,
+	            useRp: true,
+	            rp: 20,
+	            showTableToggleBtn: false,
+	            showToggleBtn: false,
+	            resizable: false,
+	            width: 808,
+	            height: 'auto',
+	            singleSelect: true
+	        });
+		});
+
+	    $('.flexigrid tr[id*="row"]').live('click', function(){
+	    	window.location = '{{ path('ProjectList') }}' + $(this).attr('id').substr(3);
+	    });
+    </script>
+    
+    <table class="entitytable"></table> 
+{% endblock %}

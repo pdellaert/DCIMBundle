@@ -1,0 +1,44 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+    <div id="entitybuttons"><a href="{{ path('ContactAdd') }}" class="button add">Add</a></div>
+    <h1>Contacts</h1>
+    <script type="text/javascript">
+	    $(function() {
+	    	$(".entitytable").flexigrid({
+	        	url: '{{ path('ContactListData') }}',
+	            dataType: 'json',
+	            colModel : [
+	                {display: 'Last name', name : 'lastname', width : 190, sortable : true, align: 'left'},
+	                {display: 'First name', name : 'firstname', width : 190, sortable : true, align: 'left'},
+	                {display: 'Company', name : 'company', width : 140, sortable : false, align: 'left'},
+	                {display: 'E-mail', name : 'email', width : 140, sortable : true, align: 'left'},
+	                {display: 'Telephone', name : 'telephone', width : 100, sortable : true, align: 'left'}
+	            ],
+	            searchitems : [
+	                {display: 'Last name', name : 'lastname', isdefault: true},
+	                {display: 'First name', name : 'firstname'},
+	                {display: 'E-mail', name : 'email'},
+	                {display: 'Telephone', name : 'telephone'}
+	            ],
+	            sortname: "lastname",
+	            sortorder: "asc",
+	            usepager: true,
+	            useRp: true,
+	            rp: 20,
+	            showTableToggleBtn: false,
+	            showToggleBtn: false,
+	            resizable: false,
+	            width: 808,
+	            height: 'auto',
+	            singleSelect: true
+	        });
+		});
+
+	    $('.flexigrid tr[id*="row"]').live('click', function(){
+	    	window.location = '{{ path('ContactList') }}' + $(this).attr('id').substr(3);
+	    });
+    </script>
+    
+    <table class="entitytable"></table> 
+{% endblock %}

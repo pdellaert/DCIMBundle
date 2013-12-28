@@ -1,0 +1,136 @@
+/*** ESSENTIAL STYLES ***/
+.sf-menu, .sf-menu * {
+	margin:			0;
+	padding:		0;
+	list-style:		none;
+}
+.sf-menu {
+	line-height:	1.0;
+}
+.sf-menu ul {
+	position:		absolute;
+	top:			-999em;
+	width:			150px; /* left offset of submenus need to match (see below) */
+}
+.sf-menu ul li {
+	width:			100%;
+}
+.sf-menu li:hover {
+	visibility:		inherit; /* fixes IE7 'sticky bug' */
+}
+.sf-menu li {
+	float:			left;
+	position:		relative;
+	width: 			auto;
+}
+.sf-menu a {
+	display:		block;
+	position:		relative;
+}
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+	left:			0;
+	top:			40px; /* match top ul list item height */
+	z-index:		100;
+}
+ul.sf-menu li:hover li ul,
+ul.sf-menu li.sfHover li ul {
+	top:			-999em;
+}
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+	left:			150px; /* match ul width */
+	top:			0px;
+}
+ul.sf-menu li li:hover li ul,
+ul.sf-menu li li.sfHover li ul {
+	top:			-999em;
+}
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+	left:			150px; /* match ul width */
+	top:			0px;
+}
+
+/** DESTYLE MAIN MENU */
+
+.ts-menu-main {
+	position: relative;
+	height: 40px;
+	z-index: 10;
+}
+.ts-menu-main a, .ts-menu-main a:visited  { /* visited pseudo selector so IE6 applies text colour*/
+	padding: 0 20px;
+	line-height: 40px;
+	background: transparent;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+}
+.ts-menu-main li ul {
+	background: url(../_img/bg-menu-sub.png) repeat left top;
+	border: 1px solid #2a2a2a;
+	border-top: none;
+}
+.ts-menu-main li.sfHover a,
+.ts-menu-main a:focus, .ts-menu-main a:hover, .ts-menu-main a:active,
+.ts-menu-main li.current-cat a, .ts-menu-main li.current a,
+.ts-menu-main li.current-menu-ancestor a,
+.ts-menu-main li.current-menu-item a {
+	color:#fff;
+	background: transparent url(../_img/bg-menu-hover.png) repeat-x left top;
+	outline: 0;
+}
+.ts-menu-main li li a {
+	padding: 0 20px;
+	line-height: 30px!important;
+	font-weight: normal!important;
+}
+.ts-menu-main li li:hover, .ts-menu-main li li.sfHover,
+.ts-menu-main li li a:focus, .ts-menu-main li li a:hover, .ts-menu-main li li a:active,
+.ts-menu-main li li.current-cat, .ts-menu-main li li.current,
+.ts-menu-main li li.current-menu-ancestor a,
+.ts-menu-main li li.current-menu-item a {
+	background: none;
+	color: #f4dec7;
+	outline: 0;
+}
+
+/** DESTYLE TOP MENU */
+
+.ts-menu-top {
+	position: relative;
+	height: 40px;
+	z-index: 20;
+}
+.ts-menu-top a, .ts-menu-top a:visited  { /* visited pseudo selector so IE6 applies text colour*/
+	padding: 0 10px;
+	line-height: 40px;
+	background: transparent;
+	color: #fff;
+	text-decoration: none;
+}
+.ts-menu-top li ul {
+	background: url(../_img/bg-menu-sub.png) repeat left top;
+	border: 1px solid #2a2a2a;
+	border-top: none;
+}
+.ts-menu-top li:hover, .ts-menu-top li.sfHover,
+.ts-menu-top a:focus, .ts-menu-top a:hover, .ts-menu-top a:active,
+.ts-menu-top li.current-cat, .ts-menu-top li.current {
+	color:#f4dec7;
+	outline: 0;
+}
+.ts-menu-top li li a {
+	padding: 0 10px;
+	line-height: 30px!important;
+	color: #fff;
+	font-weight: normal!important;
+}
+.ts-menu-top li li:hover, .ts-menu-top li li.sfHover,
+.ts-menu-top li li a:focus, .ts-menu-top li li a:hover, .ts-menu-top li li a:active,
+.ts-menu-top li li.current-cat, .ts-menu-top li li.current {
+	background: none;
+	color: #f4dec7;
+	outline: 0;
+}

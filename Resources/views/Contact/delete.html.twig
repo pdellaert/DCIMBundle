@@ -1,0 +1,16 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+    	<script type="text/javascript">
+    	setTimeout(function() {
+    		  window.location.href = "{{ path('ContactList') }}";
+    		}, 3000);
+    	</script>
+    	<h1>Contact deleted: {{ entity.lastname }}, {{ entity.firstname }}</h1>
+    	<p>You will be returned to the contact list in 3 seconds...</p>
+    {% else %}
+		<h1>Unknown contact</h1>
+		<p>The specified contact is not available.</p>
+    {% endif %}
+{% endblock %}

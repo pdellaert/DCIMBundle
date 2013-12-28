@@ -1,0 +1,47 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: DellaertDCIMBundle:Main:index }
+
+Dashboard:
+    pattern:  /dashboard
+    defaults: { _controller: DellaertDCIMBundle:Main:index }
+
+Company:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-company.yml"
+    prefix:   /company
+
+Issue:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-issue.yml"
+    prefix:   /issue
+
+Project:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-project.yml"
+    prefix:   /project
+
+Contact:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-contact.yml"
+    prefix:   /contact
+
+WorkEntry:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-workentry.yml"
+    prefix:   /workentry
+
+Category:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-category.yml"
+    prefix:   /category
+
+OutgoingInvoice:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-outgoinginvoice.yml"
+    prefix:   /outgoing
+
+IncomingInvoice:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-incominginvoice.yml"
+    prefix:   /incoming
+
+Statistics:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-statistics.yml"
+    prefix:   /statistics
+
+Timesheets:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-timesheets.yml"
+    prefix:   /timesheets

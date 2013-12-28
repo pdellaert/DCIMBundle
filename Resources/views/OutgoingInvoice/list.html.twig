@@ -1,0 +1,42 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+    <div id="entitybuttons"><a href="{{ path('OutgoingInvoiceAdd') }}" class="button add">Add</a></div>
+    <h1>Outgoing invoices</h1>
+    <script type="text/javascript">
+	    $(function() {
+	    	$(".entitytable").flexigrid({
+	        	url: '{{ path('OutgoingInvoiceListData') }}',
+	            dataType: 'json',
+	            colModel : [
+	                {display: 'Number', name : 'invoiceNumber', width : 50, sortable : true, align: 'left'},
+	                {display: 'Origin', name : 'originCompany', width : 140, sortable : false, align: 'left'},
+	                {display: 'Title', name : 'title', width : 250, sortable : true, align: 'left'},
+	                {display: 'Category', name : 'category', width : 160, sortable : false, align: 'left'},
+	                {display: 'Project', name : 'project', width : 160, sortable : false, align: 'left'}
+	            ],
+	            searchitems : [
+	                {display: 'Number', name : 'invoiceNumber', isdefault: true},
+	                {display: 'Title', name : 'title'}
+	            ],
+	            sortname: "invoiceNumber",
+	            sortorder: "asc",
+	            usepager: true,
+	            useRp: true,
+	            rp: 20,
+	            showTableToggleBtn: false,
+	            showToggleBtn: false,
+	            resizable: false,
+	            width: 808,
+	            height: 'auto',
+	            singleSelect: true
+	        });
+		});
+
+	    $('.flexigrid tr[id*="row"]').live('click', function(){
+	    	window.location = '{{ path('OutgoingInvoiceList') }}' + $(this).attr('id').substr(3);
+	    });
+    </script>
+    
+    <table class="entitytable"></table> 
+{% endblock %}

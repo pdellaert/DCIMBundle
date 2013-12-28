@@ -1,0 +1,30 @@
+{% set company = app.user.company %}
+<script type="text/javascript">
+	$(function() {
+		$("#subtabbuttons").tabs("#subpanes > div", { 
+			effect: 'ajax',
+			initialIndex: {{ years|length - 1 }}
+		});
+	});
+</script>
+{% spaceless %}
+<div id="subtabbuttons">
+	{% for year in years %}
+		{% if loop.length > 1 %}
+			{% if loop.first %}
+	   			<a href="{{ path('CompanyVatByYear', { 'id': company.id, 'year': year }) }}" class="button left">{{ year }}</a>
+	   		{% elseif loop.last %}
+	   			<a href="{{ path('CompanyVatByYear', { 'id': company.id, 'year': year }) }}" class="button right">{{ year }}</a>
+	   		{% else %}
+	   			<a href="{{ path('CompanyVatByYear', { 'id': company.id, 'year': year }) }}" class="button middle">{{ year }}</a>
+	   		{% endif %}
+	   	{% else %}
+   			<a href="{{ path('CompanyVatByYear', { 'id': company.id, 'year': year }) }}" class="button">{{ year }}</a>
+   		{% endif %}
+   	{% endfor %}
+</div>
+{% endspaceless %}
+<div class="clearfix"></div>
+<div id="subpanes">
+   	<div></div>
+</div>

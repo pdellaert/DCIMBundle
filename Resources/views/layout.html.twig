@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<title>{% block title %}{% endblock %}DCIM - Dellaert Custom Internal Management</title>
+		
+		<link rel="stylesheet" href="{{ asset('bundles/dellaertdcim/_css/style.css') }}" type="text/css" media="screen" />
+		<link rel="stylesheet" id="superfish-css" href="{{ asset('bundles/dellaertdcim/_css/superfish.css') }}" type="text/css" media="all" />
+		<link rel="stylesheet" id="superfish-css" href="{{ asset('bundles/dellaertdcim/_css/flexigrid.css') }}" type="text/css" media="all" />
+		<link rel="stylesheet" id="pretty-css" href="{{ asset('bundles/dellaertdcim/_css/prettyPhoto.css') }}" type="text/css" media="all" />
+		
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/pngfix.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/jquery.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/flexigrid.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/sorttable.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/jquery.tools.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/pretty/jquery.prettyPhoto.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/superfish/jquery.bgiframe.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/superfish/hoverIntent.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/superfish/superfish.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/superfish/supersubs.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/highcharts/highcharts.js') }}"></script>
+		<script type="text/javascript">
+		 $(function() {
+				/* For cell text alignment */
+				$("table td:first-child, table th:first-child").addClass("first");
+				/* For removing the last border */
+				$("table td:last-child, table th:last-child").addClass("last");
+		});
+		</script>
+
+		<!--[if IE 7]>
+		<link href="{{ asset('/bundles/dellaertdcim/_css/ie.css') }}" rel="stylesheet" type="text/css">
+		<![endif]-->
+
+	</head>
+	<body class="page page-id-61 page-child parent-pageid-198 page-template page-template-page-full-php noise grey">
+	
+		<div id="main">
+
+			<div id="header-top-wrap"> 
+				<div id="header-top">
+		    		<div class="ts-menu-top">
+		    			<ul class="sf-menu">
+		    				<li class="page_item page-item-1"><a href="#" title="About">About</a></li>
+							<li class="page_item page-item-2"><a href="#" title="Contact">Contact</a></li> 
+						</ul>
+					</div>		
+				</div>
+			</div>
+		
+			<div id="header" class="clearfix">
+				<div id="logo" class="clearfix">
+					<a href="{{ path('homepage') }}"><img src="{{ asset('bundles/dellaertdcim/_img/logo.png') }}" alt="DCIM" /></a>
+				</div>
+			</div>
+			<!-- end header -->
+			
+			<div id="menu-wrap">
+				<div class="ts-menu-main">
+					<ul class="sf-menu">
+						{% if app.user %}
+							{% if app.user.company %}
+								<li class="cat-item"><a href="{{ path('homepage') }}" title="Own company">{{ app.user.company.companyName }}</a></li>
+							{% endif %}
+						{% else %}
+							<li class="cat-item"><a href="{{ path('homepage') }}">Home</a></li>
+						{% endif %}
+						<li class="cat-item">
+							<a href="{{ path('CompanyList') }}" title="Companies">Companies</a>
+							<ul class='children'>
+								<li class="cat-item"><a href="{{ path('CompanyAdd') }}" title="Add a company">Add</a></li>
+							</ul>
+						</li>
+						<li class="cat-item">
+							<a href="{{ path('ProjectList') }}" title="Projects">Projects</a>
+							<ul class='children'>
+								<li class="cat-item"><a href="{{ path('ProjectAdd') }}" title="Add a project">Add</a></li>
+							</ul>
+						</li>
+						<li class="cat-item cat-item-7">
+							<a href="{{ path('ContactList') }}" title="Contacts">Contacts</a>
+							<ul class='children'>
+								<li class="cat-item"><a href="{{ path('ContactAdd') }}" title="Add a contact">Add</a></li>
+							</ul>
+						</li>
+						<li class="cat-item cat-item-7">
+							<a href="#" title="Invoices">Invoices</a>
+							<ul class='children'>
+								<li class="cat-item"><a href="{{ path('CategoryList') }}" title="Categories">Categories</a></li>
+								<li class="cat-item"><a href="{{ path('OutgoingInvoiceList') }}" title="Outgoing invoices">Outgoing</a></li>
+								<li class="cat-item"><a href="{{ path('IncomingInvoiceList') }}" title="Incoming invoices">Incoming</a></li>
+							</ul>
+						</li>
+						<li class="cat-item"><a href="{{ path('TimesheetsShow') }}">Timesheets</a></li>
+					</ul>
+				</div>
+			</div>
+	
+			<div id="content-top"></div>
+	
+			<div id="content-wrap">
+				{{ wo_render_breadcrumbs({viewTemplate: 'DellaertDCIMBundle:Breadcrumbs:template.html.twig'}) }}
+				<div id="content">
+					<div class="box-full clearfix">
+
+						{% block content %}{% endblock %}
+					
+					</div>
+				</div>
+			</div>
+			
+			<div id="content-bottom"></div> 
+				
+			<!-- end content -->
+	
+			<div id="footer"> 
+				Copyright &copy; 2011 Philippe Dellaert - All rights reserved<br /> 
+			</div>
+		</div>
+	</body>
+</html>

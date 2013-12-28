@@ -1,0 +1,48 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this project?') ) {
+					window.location = "{{ path('ProjectDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('OutgoingInvoiceAdd',{ 'id': entity.id }) }}" class="button left">Create invoice</a><a href="{{ path('ProjectEdit',{ 'id': entity.id }) }}" class="button middle">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+	    <h1>Project: {{ entity.title }}</h1>
+	    <table cellspacing="0">
+	    	<tr>
+	    		<th rowspan="2" width="20%">Company</th>
+	    		<td rowspan="2" width="30%">{{ entity.company.companyName }}</td>
+	    		<th width="20%">Rate</th>
+	    		<td width="30%"> &euro; {{ entity.rate }}</td>
+	    	</tr>
+			<tr>
+				<th width="20%">VAT</th>
+				<td width="30%">{{ entity.vat*100 }} %</td>
+			</tr>
+	    </table>
+	    <div id="entitybuttons"><a href="{{ path('IssueAdd', { 'id': entity.id }) }}" class="button add">Add issue</a></div>
+	    <h2>Issues</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>#</th>
+	    		<th>Title</th>
+	    		<th class="textright">Rate</th>
+	    		<th class="textright">Amount worked</th>
+	    	</tr>
+	    	{% for issue in entity.issues %}
+	    		<tr>
+	    			<td>{{ issue.id }}</td>
+	    			<td><a href="{{ path('IssueViewId',{ 'id': issue.id }) }}">{{ issue.title }}</a></td>
+	    			<td class="textright">&euro; {{ issue.rate }}</td>
+	    			<td class="textright">{{ issue.totalWorkEntryAmount }}</td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
+	{% else %}
+		<h1>Unknown project</h1>
+		<p>The specified project is not available.</p>
+	{% endif %}
+{% endblock %}

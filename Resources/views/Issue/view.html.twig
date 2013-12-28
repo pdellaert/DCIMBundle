@@ -1,0 +1,51 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this issue?') ) {
+					window.location = "{{ path('IssueDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('IssueEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+	    <h1>Issue: {{ entity.title }}</h1>
+	    <table cellspacing="0">
+	    	<tr>
+	    		<th rowspan="3" width="20%">Description</th>
+	    		<td rowspan="3" width="30%">{{ entity.description }}</td>
+	    		<th width="20%">Project</th>
+	    		<td width="30%">{{ entity.project.title }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th>Rate</th>
+	    		<td>&euro; {{ entity.rate }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th class="">Amount worked</th>
+	    		<td>{{ entity.totalWorkEntryAmount }} h</td>
+	    	</tr>
+	    </table>
+	    
+	    <div id="entitybuttons"><a href="{{ path('WorkEntryAdd', { 'id': entity.id }) }}" class="button add">Add work entry</a></div>
+	    <h2>Work entries</h2>
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		<th>Date</th>
+	    		<th class="textright">Amount</th>
+	    		<th>Description</th>
+	    	</tr>
+	    	{% for workentry in entity.workentries %}
+	    		<tr>
+	    			<td width="15%"><a href="{{ path('WorkEntryViewId',{ 'id': workentry.id }) }}">{{ workentry.date.format('Y-m-d') }}</a></td>
+	    			<td width="10%" class="textright">{{ workentry.amount }}</td>
+	    			<td>{{ workentry.description }}</td>
+	    		</tr>
+	    	{% endfor %}
+	    </table>
+	{% else %}
+		<h1>Unknown issue</h1>
+		<p>The specified issue is not available.</p>
+	{% endif %}
+{% endblock %}

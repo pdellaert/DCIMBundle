@@ -1,0 +1,43 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+    <div id="entitybuttons"><a href="{{ path('CompanyAdd') }}" class="button add">Add</a></div>
+    <h1>Companies</h1>
+    <script type="text/javascript">
+	    $(function() {
+	    	$(".entitytable").flexigrid({
+	        	url: '{{ path('CompanyListData') }}',
+	            dataType: 'json',
+	            colModel : [
+	                {display: 'Company', name : 'companyName', width : 290, sortable : true, align: 'left'},
+	                {display: 'City', name : 'city', width : 160, sortable : true, align: 'left'},
+	                {display: 'Country', name : 'country', width : 150, sortable : true, align: 'left'},
+	                {display: 'VAT number', name : 'vatNumber', width : 160, sortable : true, align: 'left'}
+	            ],
+	            searchitems : [
+	                {display: 'Company', name : 'companyName', isdefault: true},
+	                {display: 'City', name : 'city'},
+	                {display: 'Country', name : 'country'},
+	                {display: 'VAT number', name : 'vatNumber'}
+	            ],
+	            sortname: "companyName",
+	            sortorder: "asc",
+	            usepager: true,
+	            useRp: true,
+	            rp: 20,
+	            showTableToggleBtn: false,
+	            showToggleBtn: false,
+	            resizable: false,
+	            width: 808,
+	            height: 'auto',
+	            singleSelect: true
+	        });
+		});
+
+	    $('.flexigrid tr[id*="row"]').live('click', function(){
+	    	window.location = '{{ path('CompanyList') }}' + $(this).attr('id').substr(3);
+	    });
+    </script>
+    
+    <table class="entitytable"></table> 
+{% endblock %}

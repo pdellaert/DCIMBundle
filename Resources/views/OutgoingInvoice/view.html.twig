@@ -1,0 +1,115 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this outgoing invoice?') ) {
+					window.location = "{{ path('OutgoingInvoiceDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		{% spaceless %}
+		<div id="entitybuttons">
+			{% if entity.generated == 1 %}
+				{% if entity.payed == 1 %}
+					<a href="{{ path('OutgoingInvoiceSetPayed',{ 'id': entity.id, 'status': 'unpayed' }) }}" class="button left">Set unpayed</a>
+				{% else %}
+					<a href="{{ path('OutgoingInvoiceSetPayed',{ 'id': entity.id, 'status': 'payed' }) }}" class="button left">Set payed</a>
+				{% endif %}
+					<a href="{{ path('OutgoingInvoiceDownload',{ 'id': entity.id, 'type': 'tex' }) }}" class="button middle">TEX</a>
+					<a href="{{ path('OutgoingInvoiceDownload',{ 'id': entity.id, 'type': 'pdf' }) }}" class="button right">PDF</a>
+			{% else %}
+				<a href="{{ path('OutgoingInvoiceGenerate',{ 'id': entity.id }) }}" class="button left">Generate</a><a href="{{ path('OutgoingInvoiceEdit',{ 'id': entity.id }) }}" class="button middle">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a>
+		    {% endif %}
+	    </div>
+	    {% endspaceless %}
+	    <h1>Outgoing invoice: {{ entity.invoiceNumber }} - {{ entity.title }}</h1>
+	    <table cellspacing="0">
+	    	<tr>
+	    		<th width="20%">Project</th>
+	    		<td width="30%"><a href="{{ path('ProjectViewSlug',{ 'slug': entity.project.slug }) }}">{{ entity.project.title }}</a></td>
+	    		<th width="20%">Company</th>
+	    		<td width="30%"><a href="{{ path('CompanyViewSlug',{ 'slug': entity.project.company.slug }) }}">{{ entity.project.company.companyName }}</a></td>
+	    	</tr>
+	    	<tr>
+	    		<th>Start date</th>
+	    		<td>{{ entity.startDate.format('Y-m-d') }}</td>
+	    		<th>End date</th>
+	    		<td>{{ entity.endDate.format('Y-m-d') }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th>Origin company</th>
+	    		<td>{{ entity.originCompany.companyName }}</td>
+	    		<th>VAT</th>
+	    		<td>{{ entity.vat*100 }} %</td>
+			</tr>
+	    	<tr>
+	    		<th>Date</th>
+	    		<td>{{ entity.date.format('Y-m-d') }}</td>
+	    		<th>Due date</th>
+	    		<td>{{ entity.dueDate.format('Y-m-d') }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th>Generated</th>
+	    		<td>{% if entity.generated == 1 %}Yes{% else %}No{% endif %}</td>
+	    		<th>Payed</th>
+	    		<td>{% if entity.payed == 1 %}Yes{% else %}No{% endif %}</td>
+	    	</tr>
+	    </table>
+	    <h2>Entries</h2>
+	    {% if entity.generated != 1 %}
+	    	<form action="{{ path('OutgoingInvoiceGroupEntries', { 'id': entity.id }) }}" method="post">
+	    {% endif %}
+	    <table cellspacing="0" class="sortable">
+	    	<tr>
+	    		{% if entity.generated != 1 %}
+	    			<th width="5%">&nbsp;</th>
+	    		{% endif %}
+	    		<th>Title</th>
+	    		<th class="textright">Rate</th>
+	    		<th class="textright">Amount worked</th>
+	    		<th class="textright">Total &euro;</th>
+	    	</tr>
+	    	{% for entry in entity.entries %}
+	    		<tr>
+	    			{% if entity.generated != 1 %}
+	    				{% if entry.subentries|length > 0 %}
+	    					<td></td>
+	    				{% else %}
+	    					<td><input type="checkbox" name="entryIds[]" value="{{ entry.id }}" /></td>
+	    				{% endif %}
+	    			{% endif %}
+	    			<td>{{ entry.title }}</td>
+	    			<td class="textright">&euro; {{ entry.rate }}</td>
+	    			<td class="textright">{{ entry.amount }}</td>
+	    			<td class="textright">&euro; {{ entry.total }}</td>
+	    		</tr>
+	    		{% for subentry in entry.subentries %}
+		    		<tr>
+		    			{% if entity.generated != 1 %}
+		    				<td></td>
+		    			{% endif %}
+		    			<td class="subsmall"> - {{ subentry.title }}</td>
+		    			<td class="subsmall textright">&euro; {{ subentry.rate }}</td>
+		    			<td class="subsmall textright">{{ subentry.amount }}</td>
+	    				<td class="subsmall textright">&euro; {{ subentry.total }}</td>
+		    		</tr>
+	    		{% endfor %}
+	    	{% endfor %}
+	    </table>
+	    {% if entity.generated != 1 %}
+	    	<table cellspacing="0">
+	    		<tr>
+	    			<th class="right">Group as</th>
+	    			<td><input type="text" name="groupName" maxlength="255" required="required" /></td>
+	    		</tr>
+	    	</table>
+		    <input class="button save left" type="submit" value="Group entries" />
+		    </form>
+	    {% endif %}
+	{% else %}
+		<h1>Unknown outgoing invoice</h1>
+		<p>The specified outgoing invoice is not available.</p>
+	{% endif %}
+{% endblock %}

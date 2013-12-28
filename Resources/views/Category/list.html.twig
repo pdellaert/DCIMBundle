@@ -1,0 +1,37 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+    <div id="entitybuttons"><a href="{{ path('CategoryAdd') }}" class="button add">Add</a></div>
+    <h1>Categories</h1>
+    <script type="text/javascript">
+	    $(function() {
+	    	$(".entitytable").flexigrid({
+	        	url: '{{ path('CategoryListData') }}',
+	            dataType: 'json',
+	            colModel : [
+	                {display: 'Title', name : 'title', width : 760, sortable : true, align: 'left'}
+	            ],
+	            searchitems : [
+	                {display: 'Title', name : 'title', isdefault: true}
+	            ],
+	            sortname: "title",
+	            sortorder: "asc",
+	            usepager: true,
+	            useRp: true,
+	            rp: 20,
+	            showTableToggleBtn: false,
+	            showToggleBtn: false,
+	            resizable: false,
+	            width: 808,
+	            height: 'auto',
+	            singleSelect: true
+	        });
+		});
+
+	    $('.flexigrid tr[id*="row"]').live('click', function(){
+	    	window.location = '{{ path('CategoryList') }}' + $(this).attr('id').substr(3);
+	    });
+    </script>
+    
+    <table class="entitytable"></table> 
+{% endblock %}

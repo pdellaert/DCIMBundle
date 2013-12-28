@@ -1,0 +1,58 @@
+{% raw %}
+% Laden document type en factuur package
+\documentclass[dutch]{article}
+\usepackage{factuur}
+
+%%%%%%%%%%%%%%%%%%%%
+% FACTUUR GEGEVENS %
+%%%%%%%%%%%%%%%%%%%%
+% Project
+\def\project{{% endraw %}{{ entity.project.title }} - {{ entity.title }}{% raw %}}
+% Titel van de factuur
+\title{\project}
+% Datum van de factuur
+\date{{% endraw %}{{ entity.date.format('d-m-Y') }}{% raw %}}
+% Eigenaar van de factuur
+\author{{% endraw %}{{ entity.originCompany.companyName }}{% raw %}}
+% Factuur nummer
+\def\factuurnummer{{% endraw %}{{ entity.invoiceNumber }}{% raw %}}
+% Factuur te betalen tegen
+\def\tebetalenTegen{{% endraw %}{{ entity.dueDate.format('d-m-Y') }}{% raw %}}
+
+%%%%%%%%%%%%%%%%%%
+% KLANT GEGEVENS %
+%%%%%%%%%%%%%%%%%%
+% Klant referentie
+\def\klantRef{}
+% Klant naam
+\def\klantNaam{{% endraw %}{{ entity.project.company.companyName }}{% raw %}}
+% Klant straat
+\def\klantStraat{{% endraw %}{{ entity.project.company.street }} {{ entity.project.company.streetNumber }}{% raw %}}
+% Klant stad
+\def\klantStad{{% endraw %}{{ entity.project.company.postalcode }} {{ entity.project.company.city }}{% raw %}}
+% Klant land
+\def\klantLand{{% endraw %}{{ entity.project.company.country }}{% raw %}}
+% Klant BTW
+\def\klantBTW{{% endraw %}{{ entity.project.company.vatNumber }}{% raw %}}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Invoice input                      %
+%                                    %
+% Structuur:                         %
+% \ProjectTitle{Project}             %
+%   \Fee{Contents}{Rate/Unit}{Count} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{invoice}{\euro{}}{{% endraw %}{{ entity.vat*100 }}{% raw %}}
+    \ProjectTitle{\project}
+    	{% endraw %}
+    	{% for entry in entity.entries %}
+    		{% raw %}
+    			\Fee{{% endraw %}{{ entry.title }}{% raw %}}{{% endraw %}{{ entry.rate }}{% raw %}}{{% endraw %}{{ entry.amount }}{% raw %}}
+    		{% endraw %}
+    	{% endfor %}
+    	{% raw %}
+  \end{invoice}
+
+\end{document}
+{% endraw %}

@@ -1,0 +1,195 @@
+<script type="text/javascript"> 
+	var outchart;
+	var inchart;
+	$(document).ready(function() {
+		outchart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'openoutgoinginvoicesgraphs',
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
+			},
+			credits: {
+				enabled: false
+			},
+			title: {
+				text: 'Open revenue per company and date'
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ this.y +' euro';
+				}
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						color: '#4a4a4a',
+						connectorColor: '#4a4a4a',
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>';
+						}
+					}
+				}
+			},
+		    series: [{
+				type: 'pie',
+				name: 'Open revenue per company',
+				data: [
+					{% for company,value in outgoingPerCompany %}
+						['{{ company }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [250,100],
+		    	size: 175
+			}, {
+				type: 'pie',
+				name: 'Open revenue per date',
+				data: [
+					{% for date,value in outgoingPerDate %}
+						['{{ date }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [650,100],
+		    	size: 175
+			}]
+		});
+		inchart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'openincominginvoicesgraphs',
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
+			},
+			credits: {
+				enabled: false
+			},
+			title: {
+				text: 'Open expenses per category and date'
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ this.y +' euro';
+				}
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						color: '#4a4a4a',
+						connectorColor: '#4a4a4a',
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>';
+						}
+					}
+				}
+			},
+		    series: [{
+				type: 'pie',
+				name: 'Open expenses per category',
+				data: [
+					{% for category,value in incomingPerCategory %}
+						['{{ category }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [250,100],
+		    	size: 175
+			}, {
+				type: 'pie',
+				name: 'Open expenses per date',
+				data: [
+					{% for date,value in incomingPerDate %}
+						['{{ date }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [650,100],
+		    	size: 175
+			}]
+		});
+	});
+</script>
+<h2>Open revenue</h2>
+<div id="openoutgoinginvoicesgraphs" style="width: 900px; height: 300px; margin: 0 auto;"></div>
+<table cellspacing="0" class="sortable">
+	<thead>
+	 	<tr>
+	 		<th width="1%"></th>
+			<th width="10%">Number</th>
+			<th>Project</th>
+			<th>Title</th>
+			<th width="12%">Due</th>
+			<th width="12%" class="textright">Amount<br/>(w/o VAT)</th>
+			<th width="12%" class="textright">Amount<br/>(w VAT)</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for invoice in outgoingInvoices %}
+			<tr>
+				<td>{% spaceless %}
+					{% if invoice.dueState == 'alert' %}
+						<img src="{{ asset('bundles/dellaertdcim/_img/alert.png') }}" alt="alert" />
+					{% elseif invoice.dueState == 'warning' %}
+						<img src="{{ asset('bundles/dellaertdcim/_img/warning.png') }}" alt="warning" />
+					{% endif %}
+				{% endspaceless %}</td>
+				<td><a href="{{ path('OutgoingInvoiceViewSlug', { 'slug': invoice.slug }) }}">{{ invoice.invoiceNumber }}</a></td>
+				<td>{{ invoice.project.company.companyName }} - {{ invoice.project.title }}</td>
+				<td>{{ invoice.title }}</td>
+				<td>{{ invoice.dueDate.format('Y-m-d') }}</td>
+				<td class="textright">{{ invoice.totalWoVAT }}</td>
+				<td class="textright">{{ invoice.totalWithVAT }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="5" class="textright"><b>Total</b></th>
+			<th class="textright">{{ outgoingTotal }}</th>
+			<th class="textright">{{ outgoingTotalWVAT }}</th>
+		</tr>
+	</tfoot>
+</table>
+<h2>Open expenses</h2>
+<div id="openincominginvoicesgraphs" style="width: 900px; height: 300px; margin: 0 auto;"></div>
+<table cellspacing="0" class="sortable">
+	<thead>
+	 	<tr>
+	 		<th width="1%"></th>
+			<th>Number</th>
+			<th>Title</th>
+			<th width="12%">Due</th>
+			<th width="12%" class="textright">Amount<br/>(w/o VAT)</th>
+			<th width="12%" class="textright">Amount<br/>(w VAT)</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for invoice in incomingInvoices %}
+			<tr>
+				<td>{% spaceless %}
+					{% if invoice.dueState == 'alert' %}
+						<img src="{{ asset('bundles/dellaertdcim/_img/alert.png') }}" alt="alert" />
+					{% elseif invoice.dueState == 'warning' %}
+						<img src="{{ asset('bundles/dellaertdcim/_img/warning.png') }}" alt="warning" />
+					{% endif %}
+				{% endspaceless %}</td>
+				<td><a href="{{ path('IncomingInvoiceViewSlug', { 'slug': invoice.slug }) }}">{{ invoice.invoiceNumber }}</a></td>
+				<td>{{ invoice.title }}</td>
+				<td>{{ invoice.dueDate.format('Y-m-d') }}</td>
+				<td class="textright">{{ invoice.totalWoVAT }}</td>
+				<td class="textright">{{ invoice.totalWithVAT }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4" class="textright"><b>Total</b></th>
+			<th class="textright">{{ incomingTotal }}</th>
+			<th class="textright">{{ incomingTotalWVAT }}</th>
+		</tr>
+	</tfoot>
+</table>
+

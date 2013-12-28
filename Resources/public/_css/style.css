@@ -1,0 +1,827 @@
+/*
+Theme Name: deStyle
+Theme URI: http://themeshift.com/destyle
+Description: Blog Magazine WordPress Theme by Simon Rimkus
+Version: 0.9.3
+Author: ThemeShift
+Author URI: http://themeshift.com
+Tags: blog, magazine, light, fresh
+*/
+
+/*	##################################
+   	GENERAL
+	################################## */
+	
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #eee;
+	color: #4a4a4a;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 11px;
+}
+
+body.noise {
+	background: #eee url(../_img/bg-body.jpg) repeat-x left top;
+}
+
+body.damask {
+	background: #eee url(../_img/bg-body-damask.jpg) repeat-x left top;
+}
+
+body.carbon {
+	background: #eee url(../_img/bg-body-carbon.jpg) repeat-x left top;
+}
+
+body.squares {
+	background: #eee url(../_img/bg-body-squares.jpg) repeat-x left top;
+}
+
+
+/*	##################################
+   	HTML ELEMENTS
+	################################## */
+
+a {
+	color: #4a4a4a;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+img {
+	border: none;
+}
+
+p, ul, ol, dl {
+	line-height: 22px;
+	margin: 0 0 20px 0;
+}
+
+hr {
+	height: 1px;
+	margin: 20px 0;
+	background: #eee;
+	border: none;
+	clear: both;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 20px;
+	padding: 0px;
+	line-height: normal;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+h3 {
+	font-size: 16px;
+}
+	
+h4, h5, h6 {
+	margin-bottom: 10px;
+}
+
+blockquote {
+	margin: 0 0 0 10px;
+	padding: 0 0 0 50px;
+	background: transparent url(../_img/bg-blockquote.png) no-repeat left top;
+	font-style: italic;
+}
+
+address {
+	padding: 0 0 0 15px;
+	font-style: italic;
+}
+
+code {
+    font-family: "Courier New", Courier, serif;
+	overflow: auto;
+	padding: 2px;
+	background: #e4e4e4;
+	text-shadow: 1px 1px 0px #fff;
+}
+
+pre code {
+	background: none;
+}
+
+pre {
+    margin: 0 0 20px;
+	padding: 10px;
+	background: #f8f8f8;
+	overflow: auto;
+	color: #646464;
+	border: 1px solid #e4e4e4;
+}
+
+dl {
+    margin: 0 0 10px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    padding: 0 0 10px;
+}
+
+small {
+	font-size: 10px;
+	font-weight: normal;
+}
+
+table {
+	overflow:hidden;
+	border:1px solid #d3d3d3;
+	background:#fefefe;
+	width:90%;
+	margin:0 auto 2%;
+	-moz-border-radius:2px; /* FF1+ */
+	-webkit-border-radius:2px; /* Saf3-4 */
+	border-radius:2px;
+	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+	
+th, td {padding:8px 16px 8px; text-align:left; }
+	
+th {padding-top:8px; text-shadow: 1px 1px 1px #fff; background:#e8eaeb;}
+
+th.right {text-align: right;}
+	
+td {border-top:1px solid #e0e0e0; border-right:1px solid #e0e0e0;}
+
+td.textright, th.textright {text-align: right}
+	
+tr.odd-row td {background:#f6f6f6;}
+	
+td.last {border-right:none;}
+	
+/*
+Background gradients are completely unnecessary but a neat effect.
+*/
+	
+td {
+	background: -moz-linear-gradient(100% 25% 90deg, #fefefe, #f9f9f9);
+	background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f9f9f9), to(#fefefe));
+}
+	
+tr.odd-row td {
+	background: -moz-linear-gradient(100% 25% 90deg, #f6f6f6, #f1f1f1);
+	background: -webkit-gradient(linear, 0% 0%, 0% 25%, from(#f1f1f1), to(#f6f6f6));
+}
+	
+th {
+	background: -moz-linear-gradient(100% 20% 90deg, #e8eaeb, #ededed);
+	background: -webkit-gradient(linear, 0% 0%, 0% 20%, from(#ededed), to(#e8eaeb));
+}
+	
+tr:first-child th.first {
+	-moz-border-radius-topleft:2px;
+	-webkit-border-top-left-radius:2px; /* Saf3-4 */
+}
+	
+tr:first-child th.last {
+	-moz-border-radius-topright:2px;
+	-webkit-border-top-right-radius:2px; /* Saf3-4 */
+}
+	
+tr:last-child td.first {
+	-moz-border-radius-bottomleft:2px;
+	-webkit-border-bottom-left-radius:2px; /* Saf3-4 */
+}
+	
+tr:last-child td.last {
+	-moz-border-radius-bottomright:2px;
+	-webkit-border-bottom-right-radius:2px; /* Saf3-4 */
+}
+
+/*	##################################
+   	EXCEPTIONS
+	################################## */
+
+.flexigrid table {
+	margin: 0;
+	border-collapse: collapse;
+}
+
+/*	##################################
+   	FORM
+	################################## */
+
+::-webkit-validation-bubble { opacity: 1; }
+::-webkit-validation-bubble-arrow-clipper {}
+::-webkit-validation-bubble-arrow {
+	background-color: #999;
+	border: 1px solid #333;
+	border-width: 1px 0 0 1px;
+	-webkit-box-shadow: none;
+}
+::-webkit-validation-bubble-message {
+	background: -webkit-linear-gradient(#999,#aaa);
+	border: 1px solid #333;
+	color: #4a4a4a
+	font-size: 120%;
+	-webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.333);
+	text-shadow: 0 1px #aaa, 0 -1px #999;
+}
+
+/*	##################################
+   	BASIC LAYOUT
+	################################## */
+	
+#main {
+	background: transparent url(../_img/bg-main.png) no-repeat top center;
+}
+
+#header {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+	padding: 0px;
+}
+
+#content-wrap {
+	width: 980px;
+	margin: 0 auto;
+	padding: 0;
+	background: transparent url(../_img/bg-content-wrap.png) repeat-y left top;
+	z-index: 1;
+}
+
+#breadcrumbs {
+	color: #aaaaaa;
+	height: 10px;
+	margin: 0 40px;
+	background: transparent url(../_img/bg-content.gif) repeat-y 600px 0px;
+	z-index: 3;
+}
+	
+#content-top,
+#content-bottom {
+	width: 980px;
+	height: 20px;
+	margin: 0 auto;
+	background: transparent url(../_img/bg-content-top.png) no-repeat left bottom;
+	z-index: 2;
+}
+
+#content-bottom {
+	background: transparent url(../_img/bg-content-bottom.png) repeat-y left top;
+}
+
+#content {
+	margin: 0 40px;
+	padding-top: 10px; 
+	background: transparent url(../_img/bg-content.gif) repeat-y 600px 0px;
+	z-index: 3;
+}
+
+#footer {
+	position: relative;
+	padding: 0 0 30px 0;
+	line-height: 22px;
+	text-align: center;
+	text-shadow: 1px 1px 0px #fff;
+}
+
+#entitybuttons {
+	float: right;
+}
+
+#tabbuttons {
+	float: right;
+	width: auto !important;
+	margin-bottom: 5px;
+}
+
+#subtabbuttons {
+	width: auto !important;
+	float: right;
+}
+
+#panes {
+	width: 100%;
+}
+
+#panes div {
+	width: 100%;
+}
+
+#subpanes {
+	width: 100%;
+}
+
+#subpanes div {
+	width: 100%;
+}
+
+
+/*	##################################
+   	BASIC LAYOUT
+	################################## */
+
+#breadcrumbs a {
+	text-decoration: none;
+	color: #aaaaaa;
+}
+
+#breadcrumbs a:hover {
+	color: #4a4a4a;
+}
+
+/*	##################################
+   	HEADER
+	################################## */
+
+#logo {
+	margin: 35px 0 25px;
+}
+
+#logo img {
+	float: left;
+}
+
+#logo h2 {
+	float: left;
+	margin: 0px;
+	padding: 10px 0 0 5px;
+	color: #f4dec7;
+	font-size: 12px;
+	font-weight: normal;
+	text-shadow: 1px 1px 0px #000;
+}
+	
+#social {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	z-index: 30;
+}
+
+#social a {
+	line-height: 40px;
+	padding: 3px 25px 3px 0;
+	color: #fff;
+	text-decoration: none;
+	outline: none;
+}
+
+#social a:hover {
+	color: #f4dec7;
+}
+
+#social a:active {
+	position: relative;
+	top: 1px;
+}
+
+#social-twitter {
+	margin: 0 10px 0 0;
+	background: transparent url(../_img/bg-twitter.png) no-repeat right center;
+}
+
+#social-rss {
+	background: transparent url(../_img/bg-rss.png) no-repeat right center;
+}
+
+
+/*	##################################
+   	MENU
+	################################## */
+	
+.none #header-top-wrap {
+	background: url(../_img/bg-header-top-wrap.png) repeat-x left top;;
+}
+
+#header-top {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+}
+
+#menu-wrap {
+	background: url(../_img/bg-menu-wrap.png) repeat-x left top;
+}
+
+.red #menu-wrap {
+	background: url(../_img/bg-menu-wrap-red.png) repeat-x left top;
+}
+
+.green #menu-wrap {
+	background: url(../_img/bg-menu-wrap-green.png) repeat-x left top;
+}
+
+.grey #menu-wrap {
+	background: url(../_img/bg-menu-wrap-grey.png) repeat-x left top;
+}
+	
+.ts-menu-main {
+	width: 960px;
+	margin: 0 auto 30px;
+	padding: 0 10px;
+}
+
+/** also see /lib/scripts/superfish/superfish.css */
+	
+
+/*	##################################
+   	CONTENT
+	################################## */
+
+.subsmall {
+	color: #aaaaaa;
+	font-size: 10px;
+	font-weight: normal;
+}
+
+.page-template-page-full-php #content {
+	background: none;
+}
+
+#content-left {
+	display: inline;
+	float: left;
+	width: 570px;
+}
+
+#content-right {
+	float: right;
+	width: 300px;
+}
+
+.box-left {
+	margin: 0 0 30px;
+	padding: 0 0 10px;
+	line-height: 22px;
+	border-bottom: 1px solid #eee;
+}
+
+.box-right {
+	margin: 0 0 30px 30px;
+	padding: 0 0 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.box-full {
+	margin: 0px;
+	padding: 0 0 1px;
+}
+
+#content ul, #content ol {
+	margin: 0 0 20px;
+	padding: 0 0 0 20px;
+}
+
+#content li {
+	padding: 2px 0;
+	list-style: disc;
+}
+
+#content ol li {
+	list-style: decimal;
+}
+
+#content li ul, #content li ol {
+	margin: -2px 0 -2px 20px;
+	padding: 0px;
+}
+
+#content li li {
+	list-style: circle;
+	background: none;
+}
+
+#content ol li li {
+	list-style: upper-roman;
+}
+
+#content li li li {
+	list-style: square;
+}
+
+#content ol li li li {
+	list-style: lower-latin;
+}
+
+h1.category-title {
+	margin: 0 0 30px;
+	padding: 0 0 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.post {
+	position: relative;
+}
+
+.article-right {
+	overflow: hidden;
+}
+
+.article-img {
+	float: left;
+	margin: 0 20px 10px 0;
+	padding: 10px;
+	background: #eee;
+}
+
+a:hover .article-img {
+	background: #dedede;
+}
+
+img.shadow {
+	background: transparent url(../_img/shadow.gif) no-repeat right bottom;
+	padding: 5px 10px 10px 5px;
+}
+
+.gallery img {
+	padding: 10px;
+	background: #eee;
+	border: none!important;
+}
+
+h2.article-title {
+	margin: 0 0 10px;
+	padding: 0 40px 0 0;
+	line-height: normal;
+	font-size: 26px;
+	letter-spacing: -1px;
+}
+
+h2.article-title a {
+	color: #4a4a4a;
+	text-decoration: none;
+}
+
+h2.article-title a:hover {
+	text-decoration: underline;
+}
+
+h3.content-title {
+	margin: 0 0 10px 0;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+h3.content-title a {
+	color: #4a4a4a;
+	text-decoration: none;
+}
+
+h3.content-title a:hover {
+	text-decoration: underline;
+}
+
+#author-single {
+	position: relative;
+}
+
+#author-single .avatar {
+	float: left;
+	width: auto;
+	margin: 0 20px 30px 0;
+}
+
+#page-bookmarks {
+	margin: 0px;
+	padding: 0px;
+	line-height: 22px;
+	border-bottom: 1px solid #eee;
+}
+	
+#page-bookmarks .box-left {
+	float: left;
+	width: 255px;
+	margin: 0 20px 0 0;
+	padding: 0 0 10px;
+	line-height: 22px;
+	border-bottom: none;
+}
+
+.box-author .avatar {
+	float: left;
+	margin: 0 20px 20px 0;
+	padding: 10px;
+	background: #eee;
+}
+
+
+/*	##################################
+   	GALLERY
+	################################## */
+	
+#gallery {
+	margin-right: -30px;
+}
+
+#gallery img {
+	float: left;
+	margin: 0 30px 30px 0;
+	padding: 10px;
+	background: #eee;
+}
+
+#gallery a:hover img {
+	background: #dedede;
+}
+
+
+/*	##################################
+   	FORMS
+	################################## */
+
+.fielderror {
+	color: red;
+}
+
+input.text, textarea {
+	width: 75%;
+	padding: 5px;
+	background: #fff url(../_img/bg-input-text.gif) repeat-x left top;
+	border: 1px solid #eee;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 11px;
+}
+
+textarea {
+	width: 90%;
+	height: 125px;
+}
+
+	
+/*	##################################
+   	CLEARING
+	################################## */
+	
+.clear {
+	clear: both;
+}
+
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+/*	##################################
+   	GOOGLE BUTTONS
+	################################## */
+
+.buttons {
+    float: left;
+    padding-bottom: 20px;
+    clear: both;
+}
+
+a.button, input.button, span.button, div.button {
+    color: #6e6e6e;
+    font: bold 12px Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    padding: 7px 12px;
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-transition: border-color .218s;
+    -moz-transition: border .218s;
+    -o-transition: border-color .218s;
+    transition: border-color .218s;
+    background: #f3f3f3;
+    background: -webkit-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#F5F5F5),to(#F1F1F1));
+    border: solid 1px #dcdcdc;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    margin-right: 10px;
+}
+a.current {
+    color: #333;
+}
+a.button:hover, input.button:hover, span.button:hover, div.button:hover {
+    color: #333;
+    border-color: #999;
+    -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2) -webkit-box-shadow:0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+a.button:active, input.button:active, span.button:active, div.button:hover {
+    color: #000;
+    border-color: #444;
+}
+a.left, span.left, div.left, input.left {
+    -webkit-border-top-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+}
+a.middle, span.middle, div.middle, input.middle {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-left: solid 1px #f3f3f3;
+    margin: 0;
+    border-left: solid 1px rgba(255, 255, 255, 0);
+}
+a.middle:hover,
+a.right:hover, span.middle:hover, span.right:hover, div.middle:hover, div.right:hover, input.middle:hover, input.right:hover { border-left: solid 1px #999 }
+a.right, span.right, div.right, input.right {
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-bottom-left-radius: 0;
+    border-left: solid 1px #f3f3f3;
+    border-left: solid 1px rgba(255, 255, 255, 0);
+}
+a.big, span.big, div.big, input.big {
+    font-size: 16px;
+    padding: 10px 15px;
+}
+a.supersize, span.supersize, div.supersize, input.supersize {
+    font-size: 20px;
+    padding: 15px 20px;
+}
+a.save, span.save, div.save, input.save {
+    background: url(../_img/sprite.png) 10px 7px no-repeat #f3f3f3;
+    padding-left: 30px;
+}
+a.add, span.add, div.add, input.add {
+    background: url(../_img/sprite.png)  10px -27px no-repeat #f3f3f3;
+    padding-left: 30px;
+}
+a.delete, span.delete, div.delete, input.delete {
+    background: url(../_img/sprite.png)  10px -61px no-repeat #f3f3f3;
+    padding-left: 30px;
+}
+a.flag, span.flag, div.flag, input.flag {
+    background: url(../_img/sprite.png)  10px -96px no-repeat #f3f3f3;
+    padding-left: 30px;
+}
+a.up, span.up, div.up, input.up {
+    background: url(../_img/sprite.png)  13px -133px no-repeat #f3f3f3;
+    width: 18px;
+}
+a.down, span.down, div.down, input.down {
+    background: url(../_img/sprite.png)  13px -168px no-repeat #f3f3f3;
+    width: 18px;
+}
+a.save-big, span.save-big, div.save-big, input.save-big {
+    background: url(../_img/sprite.png) 15px 11px no-repeat #f3f3f3;
+    font-size: 16px;
+    padding: 10px 15px 10px 35px;
+}
+a.add-big, span.add-big, div.add-big, input.add-big {
+    background: url(../_img/sprite.png)  15px -23px no-repeat #f3f3f3;
+    font-size: 16px;
+    padding: 10px 15px 10px 35px;
+}
+a.delete-big, span.delete-big, div.delete-big, input.delete-big {
+    background: url(../_img/sprite.png)  15px -57px no-repeat #f3f3f3;
+    font-size: 16px;
+    padding: 10px 15px 10px 35px;
+}
+a.flag-big, span.flag-big, div.flag-big, input.flag-big {
+    background: url(../_img/sprite.png)  15px -92px no-repeat #f3f3f3;
+    font-size: 16px;
+    padding: 10px 15px 10px 35px;
+}
+a.up-big, span.up-big, div.up-big, input.up-big {
+    background: url(../_img/sprite.png)  15px -128px no-repeat #f3f3f3;
+    width: 18px;
+    font-size: 16px;
+    padding: 10px 15px;
+}
+a.down-big, span.down-big, div.down-big, input.down-big {
+    background: url(../_img/sprite.png)  15px -163px no-repeat #f3f3f3;
+    width: 18px;
+    font-size: 16px;
+    padding: 10px 15px;
+}

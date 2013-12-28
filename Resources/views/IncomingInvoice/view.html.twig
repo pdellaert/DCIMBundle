@@ -1,0 +1,55 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this incoming invoice?') ) {
+					window.location = "{{ path('IncomingInvoiceDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		{% spaceless %}
+		<div id="entitybuttons">
+				{% if entity.payed == 1 %}
+					<a href="{{ path('IncomingInvoiceSetPayed',{ 'id': entity.id, 'status': 'unpayed' }) }}" class="button left">Set unpayed</a>
+				{% else %}
+					<a href="{{ path('IncomingInvoiceSetPayed',{ 'id': entity.id, 'status': 'payed' }) }}" class="button left">Set payed</a>
+				{% endif %}
+					<a href="{{ path('IncomingInvoiceDownload',{ 'id': entity.id }) }}" class="button middle">PDF</a>
+					<a href="{{ path('IncomingInvoiceEdit',{ 'id': entity.id }) }}" class="button middle">Edit</a>
+					<a href="javascript:confirmDelete()" class="button right">Delete</a>
+	    </div>
+	    {% endspaceless %}
+	    <h1>Incoming invoice: {{ entity.invoiceNumber }} - {{ entity.title }}</h1>
+	    <table cellspacing="0">
+	    	<tr>
+	    		<th width="20%">Target company</th>
+	    		<td width="30%">{{ entity.targetCompany.companyName }}</td>
+	    		<th width="20%">Category</th>
+	    		<td width="30%">{{ entity.category.title }}</td>
+			</tr>
+	    	<tr>
+	    		<th>Date</th>
+	    		<td>{{ entity.date.format('Y-m-d') }}</td>
+	    		<th>Due date</th>
+	    		<td>{{ entity.dueDate.format('Y-m-d') }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th>Amount</th>
+	    		<td>{{ entity.amount }} euro</td>
+	    		<th>VAT</th>
+	    		<td>{{ entity.vat }} euro</td>
+	    	</tr>
+	    	<tr>
+	    		<th>Payed</th>
+	    		<td>{% if entity.payed == 1 %}Yes{% else %}No{% endif %}</td>
+	    		<th></th>
+	    		<td></td>
+	    	</tr>
+	    </table>
+	{% else %}
+		<h1>Unknown incoming invoice</h1>
+		<p>The specified incoming invoice is not available.</p>
+	{% endif %}
+{% endblock %}

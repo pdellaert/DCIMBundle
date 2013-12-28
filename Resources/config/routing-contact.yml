@@ -1,0 +1,29 @@
+ContactList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:Contact:list}
+        
+ContactListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:Contact:listData}
+
+ContactAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertDCIMBundle:Contact:add, id: -1}
+    requirements:
+        id: \d+
+
+ContactEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:Contact:edit}
+    requirements:
+        id: \d+
+
+ContactDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:Contact:delete}
+    requirements:
+        id: \d+
+
+ContactViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:Contact:view}

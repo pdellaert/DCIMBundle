@@ -1,0 +1,12 @@
+{% if wo_breadcrumbs()|length %}
+    <div id="breadcrumbs">
+        {% for crumb in breadcrumbs %}
+            {% if not loop.last %}
+                <a href="{{ crumb.url }}">{{ crumb.text }}</a> &gt;
+            {% endif %}
+            {% if loop.last %}
+                <a href="{{ crumb.url }}" class="last">{{ crumb.text }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,38 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this contact?') ) {
+					window.location = "{{ path('ContactDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('ContactEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Contact: {{ entity.lastname }}, {{ entity.firstname }}</h1>
+	    <table cellspacing="0">
+	    	<tr>
+	    		<th rowspan="3" width="20%">Address</th>
+	    		<td rowspan="3" width="30%">
+	    			{{ entity.street }} {{ entity.streetnumber }}<br />
+	    			{{ entity.postalcode }} {{ entity.city }}<br />
+	    			{{ entity.country }}
+	    		</td>
+	    		<th width="20%">Telephone</th>
+	    		<td width="30%">{{ entity.telephone }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th>E-mail</th>
+	    		<td>{{ entity.email }}</td>
+	    	</tr>
+	    	<tr>
+	    		<th>Company</th>
+	    		<td>{{ entity.company.companyName }}</td>
+	    	</tr>
+	    </table>
+	{% else %}
+		<h1>Unknown contact</h1>
+		<p>The specified contact is not available.</p>
+	{% endif %}
+{% endblock %}

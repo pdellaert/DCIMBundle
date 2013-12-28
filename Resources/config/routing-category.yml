@@ -1,0 +1,27 @@
+CategoryList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:Category:list}
+        
+CategoryListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:Category:listData}
+
+CategoryAdd:
+    pattern: /add
+    defaults: { _controller: DellaertDCIMBundle:Category:add}
+
+CategoryEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:Category:edit}
+    requirements:
+        id: \d+
+
+CategoryDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:Category:delete}
+    requirements:
+        id: \d+
+
+CategoryViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:Category:view}

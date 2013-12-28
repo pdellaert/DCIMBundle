@@ -1,0 +1,27 @@
+CompanyList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:Company:list}
+        
+CompanyListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:Company:listData}
+
+CompanyAdd:
+    pattern: /add
+    defaults: { _controller: DellaertDCIMBundle:Company:add}
+
+CompanyEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:Company:edit}
+    requirements:
+        id: \d+
+
+CompanyDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:Company:delete}
+    requirements:
+        id: \d+
+
+CompanyViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:Company:view}

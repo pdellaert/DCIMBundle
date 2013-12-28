@@ -1,0 +1,35 @@
+WorkEntryList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:list}
+        
+WorkEntryListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:listData}
+
+WorkEntryAdd:
+    pattern: /add/{id}
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:add, id: -1}
+    requirements:
+        id: \d+
+
+WorkEntryEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:edit}
+    requirements:
+        id: \d+
+
+WorkEntryDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:delete}
+    requirements:
+        id: \d+
+
+WorkEntryViewId:
+    pattern: /{id}
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:view}
+    requirements:
+        id: \d+
+
+WorkEntryImport:
+    pattern: /import
+    defaults: { _controller: DellaertDCIMBundle:WorkEntry:import}
