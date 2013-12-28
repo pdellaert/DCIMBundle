@@ -145,7 +145,7 @@ class CategoryController extends Controller
     	$entity = $this->getDoctrine()->getRepository('DellaertDCIMBundle:Category')->find($id);
     	$this->get("white_october_breadcrumbs")
     		->addItem("Home", $this->get("router")->generate("homepage"))
-    		->addItem("Companies", $this->get("router")->generate("CategoryList"));
+    		->addItem("Categories", $this->get("router")->generate("CategoryList"));
     	if( $entity ) {
     		$this->get("white_october_breadcrumbs")->addItem($entity->getTitle(), $this->get("router")->generate("CategoryViewSlug",array('slug'=>$entity->getSlug())));
 	    	$form = $this->createAddEditForm($entity);
