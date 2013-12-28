@@ -6,6 +6,7 @@ use Dellaert\DCIMBundle\Entity\Category;
 use Dellaert\DCIMBundle\Entity\RecursiveCategoryIterator;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class CategoryController extends Controller
 {
@@ -206,7 +207,7 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
         $root_categories = $em->getRepository('DellaertDCIMBundle:Category')->findBy(array('parent' => null));
 
-        $collection = new Doctrine\Common\Collections\ArrayCollection($root_categories);
+        $collection = new ArrayCollection($root_categories);
         $category_iterator = new RecursiveCategoryIterator($collection);
         $recursive_iterator = new RecursiveIteratorIterator($category_iterator, RecursiveIteratorIterator::SELF_FIRST);
 
