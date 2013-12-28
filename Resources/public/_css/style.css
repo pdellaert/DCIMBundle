@@ -310,6 +310,11 @@ tr:last-child td.last {
 	float: right;
 }
 
+#subsubtabbuttons {
+	width: auto !important;
+	float: right;
+}
+
 #panes {
 	width: 100%;
 }
@@ -323,6 +328,14 @@ tr:last-child td.last {
 }
 
 #subpanes div {
+	width: 100%;
+}
+
+#subsubpanes {
+	width: 100%;
+}
+
+#subsubpanes div {
 	width: 100%;
 }
 
