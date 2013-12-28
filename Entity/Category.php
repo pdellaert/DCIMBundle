@@ -66,6 +66,17 @@ class Category
      * @var string
      */
     protected $slug;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Category",inversedBy="children",nullable=true)
+     * @Assert\Type(type="Dellaert\DCIMBundle\Entity\Category")
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     */
+    protected $children;
 
     /**
      * @ORM\OneToMany(targetEntity="OutgoingInvoice", mappedBy="category")
@@ -79,6 +90,7 @@ class Category
     
     
     public function __construct() {
+        $this->children = new ArrayCollection();
     	$this->outgoingInvoices = new ArrayCollection();
     	$this->incomingInvoices = new ArrayCollection();
     }

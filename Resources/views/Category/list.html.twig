@@ -9,7 +9,8 @@
 	        	url: '{{ path('CategoryListData') }}',
 	            dataType: 'json',
 	            colModel : [
-	                {display: 'Title', name : 'title', width : 760, sortable : true, align: 'left'}
+	                {display: 'Title', name : 'title', width : 400, sortable : true, align: 'left'},
+	                {display: 'Parent Category', name: 'parent', width: 400, sortable: false, align: 'left' }
 	            ],
 	            searchitems : [
 	                {display: 'Title', name : 'title', isdefault: true}

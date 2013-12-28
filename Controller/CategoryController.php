@@ -74,9 +74,13 @@ class CategoryController extends Controller
 		$data['total'] = $total;
 		$data['rows'] = array();
 		foreach($results as $entity) {
+            $parent = 'None'
+            if( !empty($entity->getParent()) ) {
+                $parent = $entity->getParent()->getTitle();
+            }
 			$data['rows'][] = array(
 				'id' => $entity->getSlug(),
-				'cell' => array($entity->getTitle())
+				'cell' => array($entity->getTitle(),$parent)
 			);
 		}
 
@@ -185,6 +189,16 @@ class CategoryController extends Controller
     {
     	$fb = $this->createFormBuilder($entity);
     	$fb->add('title','text',array('max_length'=>255,'required'=>true,'label'=>'Title'));
+        $fb->add('parent','entity',array(
+            'class' => 'Dellaert\\DCIMBundle\\Entity\\Category',
+            'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('c')->orderBy('c.title','ASC');
+            },
+            'empty_value' => 'None'
+            'property' => 'title',
+            'required' => true,
+            'label' => 'Parent category'
+        ));
     	return $fb->getForm();
     }
 }
