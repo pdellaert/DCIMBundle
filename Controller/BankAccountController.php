@@ -173,7 +173,7 @@ class BankAccountController extends Controller
 		$fb = $this->createFormBuilder($entity);
 		$fb->add('accountNumber','text',array('max_length'=>255,'required'=>true,'label'=>'Account number'));
 		$fb->add('accountName','text',array('max_length'=>255,'required'=>true,'label'=>'Account name'));
-		$fb->add('personal','checkbox',array('required'=>true,'label'=>'Personal account'));
+		$fb->add('personal','checkbox',array('required'=>false,'label'=>'Personal account'));
 		return $fb->getForm();
 	}
 
