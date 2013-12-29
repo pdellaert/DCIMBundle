@@ -100,9 +100,19 @@
 						<li class="cat-item">
 							<a href="#" title="Invoices">Invoices</a>
 							<ul class="children">
-								<li class="cat-item"><a href="{{ path('CategoryList') }}" title="Categories">Categories</a></li>
+								<li class="cat-item">
+									<a href="{{ path('CategoryList') }}" title="Categories">Categories</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('CategoryAdd') }}" title="Add a category">Add</a></li>
+									</ul>
+								</li>
 								<li class="cat-item"><a href="{{ path('OutgoingInvoiceList') }}" title="Outgoing invoices">Outgoing</a></li>
-								<li class="cat-item"><a href="{{ path('IncomingInvoiceList') }}" title="Incoming invoices">Incoming</a></li>
+								<li class="cat-item">
+									<a href="{{ path('IncomingInvoiceList') }}" title="Incoming invoices">Incoming</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('IncomingInvoiceAdd') }}" title="Add an incoming invoice">Add</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="cat-item"><a href="{{ path('TimesheetsShow') }}">Timesheets</a></li>
