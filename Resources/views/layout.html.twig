@@ -70,34 +70,39 @@
 						{% endif %}
 						<li class="cat-item">
 							<a href="{{ path('CompanyList') }}" title="Companies">Companies</a>
-							<ul class='children'>
+							<ul class="children">
 								<li class="cat-item"><a href="{{ path('CompanyAdd') }}" title="Add a company">Add</a></li>
 							</ul>
 						</li>
 						<li class="cat-item">
-							<a href="{{ path('ProjectList') }}" title="Projects">Projects</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('ProjectAdd') }}" title="Add a project">Add</a></li>
-							</ul>
-						</li>
-						<li class="cat-item cat-item-7">
 							<a href="{{ path('ContactList') }}" title="Contacts">Contacts</a>
-							<ul class='children'>
+							<ul class="children">
 								<li class="cat-item"><a href="{{ path('ContactAdd') }}" title="Add a contact">Add</a></li>
 							</ul>
 						</li>
-						<li class="cat-item cat-item-7">
-							<a href="#" title="Invoices">Invoices</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('CategoryList') }}" title="Categories">Categories</a></li>
-								<li class="cat-item"><a href="{{ path('OutgoingInvoiceList') }}" title="Outgoing invoices">Outgoing</a></li>
-								<li class="cat-item"><a href="{{ path('IncomingInvoiceList') }}" title="Incoming invoices">Incoming</a></li>
+						<li class="cat-item">
+							<a href="#" title="Finances">Finances</a>
+							<ul class="children">
+								<li class="cat-item">
+									<a href="{{ path('BankAccountList') }}" title="Bank accounts">Bank accounts</a>
+									<ul class="children">
+										<li class="cat-item"><a href="{{ path('BankAccountAdd') }}" title="Add a bank account">Add</a></li>
+									</ul>
+								</li>
 							</ul>
 						</li>
 						<li class="cat-item">
-							<a href="{{ path('BankAccountList') }}" title="Bank accounts">Bank accounts</a>
-							<ul class='children'>
-								<li class="cat-item"><a href="{{ path('BankAccountAdd') }}" title="Add a bank account">Add</a></li>
+							<a href="{{ path('ProjectList') }}" title="Projects">Projects</a>
+							<ul class="children">
+								<li class="cat-item"><a href="{{ path('ProjectAdd') }}" title="Add a project">Add</a></li>
+							</ul>
+						</li>
+						<li class="cat-item">
+							<a href="#" title="Invoices">Invoices</a>
+							<ul class="children">
+								<li class="cat-item"><a href="{{ path('CategoryList') }}" title="Categories">Categories</a></li>
+								<li class="cat-item"><a href="{{ path('OutgoingInvoiceList') }}" title="Outgoing invoices">Outgoing</a></li>
+								<li class="cat-item"><a href="{{ path('IncomingInvoiceList') }}" title="Incoming invoices">Incoming</a></li>
 							</ul>
 						</li>
 						<li class="cat-item"><a href="{{ path('TimesheetsShow') }}">Timesheets</a></li>
