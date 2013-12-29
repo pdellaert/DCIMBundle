@@ -145,7 +145,7 @@ class BankAccountController extends Controller
 			->addItem("Home", $this->get("router")->generate("homepage"))
 			->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
 		if( $entity ) {
-			$this->get("white_october_breadcrumbs")->addItem($entity->getBankAccountName(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())));
+			$this->get("white_october_breadcrumbs")->addItem($entity->getAccountName(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())));
 			$form = $this->createAddEditForm($entity);
 			$request = $this->getRequest();
 			if( $request->getMethod() == 'POST' ) {
@@ -174,7 +174,7 @@ class BankAccountController extends Controller
 			->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
-				->addItem($entity->getBankAccountName(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())))
+				->addItem($entity->getAccountName(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())))
 				->addItem("Delete",'');
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($entity);
