@@ -42,9 +42,9 @@
 
 			<div id="header-top-wrap"> 
 				<div id="header-top">
-		    		<div class="ts-menu-top">
-		    			<ul class="sf-menu">
-		    				<li class="page_item page-item-1"><a href="#" title="About">About</a></li>
+					<div class="ts-menu-top">
+						<ul class="sf-menu">
+							<li class="page_item page-item-1"><a href="#" title="About">About</a></li>
 							<li class="page_item page-item-2"><a href="#" title="Contact">Contact</a></li> 
 						</ul>
 					</div>		
@@ -92,6 +92,12 @@
 								<li class="cat-item"><a href="{{ path('CategoryList') }}" title="Categories">Categories</a></li>
 								<li class="cat-item"><a href="{{ path('OutgoingInvoiceList') }}" title="Outgoing invoices">Outgoing</a></li>
 								<li class="cat-item"><a href="{{ path('IncomingInvoiceList') }}" title="Incoming invoices">Incoming</a></li>
+							</ul>
+						</li>
+						<li class="cat-item">
+							<a href="{{ path('BankAccountList') }}" title="Bank accounts">Bank accounts</a>
+							<ul class='children'>
+								<li class="cat-item"><a href="{{ path('BankAccountAdd') }}" title="Add a bank account">Add</a></li>
 							</ul>
 						</li>
 						<li class="cat-item"><a href="{{ path('TimesheetsShow') }}">Timesheets</a></li>
