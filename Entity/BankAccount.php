@@ -93,197 +93,197 @@ class BankAccount
 		$this->updatedAt = new \DateTime();
 	}
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+	/**
+	 * Get id
+	 *
+	 * @return integer 
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return BankAccount
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    
-        return $this;
-    }
+	/**
+	 * Set createdAt
+	 *
+	 * @param \DateTime $createdAt
+	 * @return BankAccount
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+	
+		return $this;
+	}
 
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
+	/**
+	 * Get createdAt
+	 *
+	 * @return \DateTime 
+	 */
+	public function getCreatedAt()
+	{
+		return $this->createdAt;
+	}
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return BankAccount
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    
-        return $this;
-    }
+	/**
+	 * Set updatedAt
+	 *
+	 * @param \DateTime $updatedAt
+	 * @return BankAccount
+	 */
+	public function setUpdatedAt($updatedAt)
+	{
+		$this->updatedAt = $updatedAt;
+	
+		return $this;
+	}
 
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
+	/**
+	 * Get updatedAt
+	 *
+	 * @return \DateTime 
+	 */
+	public function getUpdatedAt()
+	{
+		return $this->updatedAt;
+	}
 
-    /**
-     * Set enabled
-     *
-     * @param boolean $enabled
-     * @return BankAccount
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    
-        return $this;
-    }
+	/**
+	 * Set enabled
+	 *
+	 * @param boolean $enabled
+	 * @return BankAccount
+	 */
+	public function setEnabled($enabled)
+	{
+		$this->enabled = $enabled;
+	
+		return $this;
+	}
 
-    /**
-     * Get enabled
-     *
-     * @return boolean 
-     */
-    public function getEnabled()
-    {
-        return $this->enabled;
-    }
+	/**
+	 * Get enabled
+	 *
+	 * @return boolean 
+	 */
+	public function getEnabled()
+	{
+		return $this->enabled;
+	}
 
-    /**
-     * Set accountNumber
-     *
-     * @param string $accountNumber
-     * @return BankAccount
-     */
-    public function setAccountNumber($accountNumber)
-    {
-        $this->accountNumber = $accountNumber;
-    
-        return $this;
-    }
+	/**
+	 * Set accountNumber
+	 *
+	 * @param string $accountNumber
+	 * @return BankAccount
+	 */
+	public function setAccountNumber($accountNumber)
+	{
+		$this->accountNumber = $accountNumber;
+	
+		return $this;
+	}
 
-    /**
-     * Get accountNumber
-     *
-     * @return string 
-     */
-    public function getAccountNumber()
-    {
-        return $this->accountNumber;
-    }
+	/**
+	 * Get accountNumber
+	 *
+	 * @return string 
+	 */
+	public function getAccountNumber()
+	{
+		return $this->accountNumber;
+	}
 
-    /**
-     * Set accountName
-     *
-     * @param string $accountName
-     * @return BankAccount
-     */
-    public function setAccountName($accountName)
-    {
-        $this->accountName = $accountName;
-    
-        return $this;
-    }
+	/**
+	 * Set accountName
+	 *
+	 * @param string $accountName
+	 * @return BankAccount
+	 */
+	public function setAccountName($accountName)
+	{
+		$this->accountName = $accountName;
+	
+		return $this;
+	}
 
-    /**
-     * Get accountName
-     *
-     * @return string 
-     */
-    public function getAccountName()
-    {
-        return $this->accountName;
-    }
+	/**
+	 * Get accountName
+	 *
+	 * @return string 
+	 */
+	public function getAccountName()
+	{
+		return $this->accountName;
+	}
 
-    /**
-     * Set personal
-     *
-     * @param boolean $personal
-     * @return BankAccount
-     */
-    public function setPersonal($personal)
-    {
-        $this->personal = $personal;
-    
-        return $this;
-    }
+	/**
+	 * Set personal
+	 *
+	 * @param boolean $personal
+	 * @return BankAccount
+	 */
+	public function setPersonal($personal)
+	{
+		$this->personal = $personal;
+	
+		return $this;
+	}
 
-    /**
-     * Get personal
-     *
-     * @return boolean 
-     */
-    public function getPersonal()
-    {
-        return $this->personal;
-    }
+	/**
+	 * Get personal
+	 *
+	 * @return boolean 
+	 */
+	public function getPersonal()
+	{
+		return $this->personal;
+	}
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return BankAccount
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
+	/**
+	 * Set slug
+	 *
+	 * @param string $slug
+	 * @return BankAccount
+	 */
+	public function setSlug($slug)
+	{
+		$this->slug = $slug;
+	
+		return $this;
+	}
 
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
+	/**
+	 * Get slug
+	 *
+	 * @return string 
+	 */
+	public function getSlug()
+	{
+		return $this->slug;
+	}
 
-    /**
-     * Set createdBy
-     *
-     * @param \Dellaert\DCIMBundle\Entity\User $createdBy
-     * @return BankAccount
-     */
-    public function setCreatedBy(\Dellaert\DCIMBundle\Entity\User $createdBy = null)
-    {
-        $this->createdBy = $createdBy;
-    
-        return $this;
-    }
+	/**
+	 * Set createdBy
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\User $createdBy
+	 * @return BankAccount
+	 */
+	public function setCreatedBy(\Dellaert\DCIMBundle\Entity\User $createdBy = null)
+	{
+		$this->createdBy = $createdBy;
+	
+		return $this;
+	}
 
-    /**
-     * Get createdBy
-     *
-     * @return \Dellaert\DCIMBundle\Entity\User 
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
+	/**
+	 * Get createdBy
+	 *
+	 * @return \Dellaert\DCIMBundle\Entity\User 
+	 */
+	public function getCreatedBy()
+	{
+		return $this->createdBy;
+	}
 }

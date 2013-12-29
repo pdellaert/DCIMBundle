@@ -11,7 +11,7 @@ class TimesheetsController extends Controller
 {
 	public function showAction() {
 		$user = $this->get('security.context')->getToken()->getUser();
-    	$request = $this->getRequest();
+		$request = $this->getRequest();
 		$this->get("white_october_breadcrumbs")
 			->addItem("Home", $this->get("router")->generate("homepage"))
 			->addItem($user->getCompany()->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$user->getCompany()->getSlug())))
