@@ -1,0 +1,28 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this bank account?') ) {
+					window.location = "{{ path('BankAccountDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		<div id="entitybuttons"><a href="{{ path('BankAccountEdit',{ 'id': entity.id }) }}" class="button left">Edit</a><a href="javascript:confirmDelete()" class="button right">Delete</a></div>
+		<h1>Bank account: {{ entity.accountNumber }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th width="20%">Name</th>
+				<td width="30%">
+					{{ entity.accountName }}
+				</td>
+				<th width="20%">Personal</th>
+				<td width="30%">{% if entity.personal %}Yes{% else %}No{% endif %}</td>
+			</tr>
+		</table>
+	{% else %}
+		<h1>Unknown bank account</h1>
+		<p>The specified account is not available.</p>
+	{% endif %}
+{% endblock %}

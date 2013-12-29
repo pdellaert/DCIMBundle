@@ -1,0 +1,16 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+		<script type="text/javascript">
+		setTimeout(function() {
+			  window.location.href = "{{ path('BankAccountList') }}";
+			}, 3000);
+		</script>
+		<h1>Bank account deleted: {{ entity.accountName }}</h1>
+		<p>You will be returned to the bank account list in 3 seconds...</p>
+	{% else %}
+		<h1>Unknown bank account</h1>
+		<p>The specified bank account is not available.</p>
+	{% endif %}
+{% endblock %}

@@ -45,3 +45,7 @@ Statistics:
 Timesheets:
     resource: "@DellaertDCIMBundle/Resources/config/routing-timesheets.yml"
     prefix:   /timesheets
+
+Company:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-bankaccount.yml"
+    prefix:   /bank-account

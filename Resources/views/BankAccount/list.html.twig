@@ -1,0 +1,40 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	<div id="entitybuttons"><a href="{{ path('CompanyAdd') }}" class="button add">Add</a></div>
+	<h1>Companies</h1>
+	<script type="text/javascript">
+		$(function() {
+			$(".entitytable").flexigrid({
+				url: '{{ path('CompanyListData') }}',
+				dataType: 'json',
+				colModel : [
+					{display: 'Account number', name : 'accountNumber', width : 400, sortable : true, align: 'left'},
+					{display: 'Account name', name : 'accountName', width : 300, sortable : true, align: 'left'},
+					{display: 'Personal', name : 'personal', width : 100, sortable : false, align: 'left'}
+				],
+				searchitems : [
+					{display: 'Account number', name : 'accountNumber', isdefault: true},
+					{display: 'Account name', name : 'accountName'}
+				],
+				sortname: "accountNumber",
+				sortorder: "asc",
+				usepager: true,
+				useRp: true,
+				rp: 20,
+				showTableToggleBtn: false,
+				showToggleBtn: false,
+				resizable: false,
+				width: 808,
+				height: 'auto',
+				singleSelect: true
+			});
+		});
+
+		$('.flexigrid tr[id*="row"]').live('click', function(){
+			window.location = '{{ path('BankAccountList') }}' + $(this).attr('id').substr(3);
+		});
+	</script>
+	
+	<table class="entitytable"></table> 
+{% endblock %}

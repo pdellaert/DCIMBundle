@@ -2,17 +2,17 @@
 namespace Dellaert\DCIMBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Dellaert\DCIMBundle\Entity\Company;
+use Dellaert\DCIMBundle\Entity\BankAccount;
 use Symfony\Component\HttpFoundation\Response;
 
-class CompanyController extends Controller
+class BankAccountController extends Controller
 {
 	public function listAction()
 	{
 		$this->get("white_october_breadcrumbs")
 			->addItem("Home", $this->get("router")->generate("homepage"))
-			->addItem("Companies", $this->get("router")->generate("CompanyList"));
-		return $this->render('DellaertDCIMBundle:Company:list.html.twig');
+			->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
+		return $this->render('DellaertDCIMBundle:BankAccount:list.html.twig');
 	}
 	
 	public function listDataAction()
@@ -24,7 +24,7 @@ class CompanyController extends Controller
 			$page = $request->request->get('page');
 		}
 		
-		$sortname = 'companyName';
+		$sortname = 'accountNumber';
 		if( $request->request->get('sortname') != null && $request->request->get('sortname') != '' ) {
 			$sortname = $request->request->get('sortname');
 		}
@@ -51,7 +51,7 @@ class CompanyController extends Controller
 		
 		$pageStart = ($page-1)*$rp;
 		
-		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:Company');
+		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:BankAccount');
 		$qb = $repository->createQueryBuilder('c');
 		if( $searchquery != '' && $searchtype != '' ) {
 			$qb->add('where',$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%')));
@@ -63,7 +63,7 @@ class CompanyController extends Controller
 		$results = $query->getResult();
 		
 		$em = $this->getDoctrine()->getManager();
-		$qstring = 'SELECT COUNT(c.id) FROM DellaertDCIMBundle:Company c';
+		$qstring = 'SELECT COUNT(c.id) FROM DellaertDCIMBundle:BankAccount c';
 		if( $searchquery != '' && $searchtype != '' ) {
 			$qstring .= ' where '.$qb->expr()->like('c.'.$searchtype, $qb->expr()->literal('%'.$searchquery.'%'));
 		}
@@ -74,12 +74,16 @@ class CompanyController extends Controller
 		$data['total'] = $total;
 		$data['rows'] = array();
 		foreach($results as $entity) {
+			if( $entity->getPersonal() ) {
+				$personal = 'Yes';
+			} else {
+				$personal = 'No';
+			}
 			$data['rows'][] = array(
 				'id' => $entity->getSlug(),
-				'cell' => array($entity->getCompanyName(), $entity->getCity(), $entity->getCountry(), $entity->getVatNumber())
+				'cell' => array($entity->getAccountNumber(), $entity->getAccountName(), $personal)
 			);
 		}
-
 		
 		$response = new Response(json_encode($data));
 		$response->headers->set('Content-Type', 'application/json');
@@ -87,32 +91,15 @@ class CompanyController extends Controller
 		return $response;
 	}
 	
-	public function viewAction($slug)
-	{
-		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:Company');
-		$entity = $repository->findOneBySlug($slug);
-		
-		$this->get("white_october_breadcrumbs")
-			->addItem("Home", $this->get("router")->generate("homepage"))
-				->addItem("Companies", $this->get("router")->generate("CompanyList"));
-		if( $entity ) {
-			$this->get("white_october_breadcrumbs")->addItem($entity->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$slug)));
-		} else {
-			$this->get("white_october_breadcrumbs")->addItem("Unkown company", '');
-		}
-		
-		return $this->render('DellaertDCIMBundle:Company:view.html.twig',array('entity'=>$entity));
-	}
-	
 	public function addAction()
 	{
-		$entity = new Company();
+		$entity = new BankAccount();
 		$form = $this->createAddEditForm($entity);
 		$request = $this->getRequest();
 		
 		$this->get("white_october_breadcrumbs")
 			->addItem("Home", $this->get("router")->generate("homepage"))
-			->addItem("Companies", $this->get("router")->generate("CompanyList"));
+			->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
 		
 		if( $request->getMethod() == 'POST' ) {
 			$form->handleRequest($request);	
@@ -125,23 +112,23 @@ class CompanyController extends Controller
 				$em->persist($entity);
 				$em->flush();
 				$this->get("white_october_breadcrumbs")
-					->addItem($entity->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$entity->getSlug())))
+					->addItem($entity->getAccountNumber(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())))
 					->addItem("Save",'');
-				return $this->render('DellaertDCIMBundle:Company:add.html.twig',array('entity'=>$entity));
+				return $this->render('DellaertDCIMBundle:BankAccount:add.html.twig',array('entity'=>$entity));
 			}
 		}
-		$this->get("white_october_breadcrumbs")->addItem("Add company", '');
-		return $this->render('DellaertDCIMBundle:Company:add.html.twig',array('form'=>$form->createView()));
+		$this->get("white_october_breadcrumbs")->addItem("Add bank account", '');
+		return $this->render('DellaertDCIMBundle:BankAccount:add.html.twig',array('form'=>$form->createView()));
 	}
 	
 	public function editAction($id)
 	{
-		$entity = $this->getDoctrine()->getRepository('DellaertDCIMBundle:Company')->find($id);
+		$entity = $this->getDoctrine()->getRepository('DellaertDCIMBundle:BankAccount')->find($id);
 		$this->get("white_october_breadcrumbs")
 			->addItem("Home", $this->get("router")->generate("homepage"))
-			->addItem("Companies", $this->get("router")->generate("CompanyList"));
+			->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
 		if( $entity ) {
-			$this->get("white_october_breadcrumbs")->addItem($entity->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$entity->getSlug())));
+			$this->get("white_october_breadcrumbs")->addItem($entity->getBankAccountName(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())));
 			$form = $this->createAddEditForm($entity);
 			$request = $this->getRequest();
 			if( $request->getMethod() == 'POST' ) {
@@ -152,47 +139,42 @@ class CompanyController extends Controller
 					$em->persist($entity);
 					$em->flush();
 					$this->get("white_october_breadcrumbs")->addItem("Save",'');
-					return $this->render('DellaertDCIMBundle:Company:edit.html.twig',array('entity'=>$entity));
+					return $this->render('DellaertDCIMBundle:BankAccount:edit.html.twig',array('entity'=>$entity));
 				}
 			}
 			$this->get("white_october_breadcrumbs")->addItem("Edit",'');
-			return $this->render('DellaertDCIMBundle:Company:edit.html.twig',array('form'=>$form->createView(),'entity'=>$entity));
+			return $this->render('DellaertDCIMBundle:BankAccount:edit.html.twig',array('form'=>$form->createView(),'entity'=>$entity));
 		}
-		$this->get("white_october_breadcrumbs")->addItem("Unkown company", '');
-		return $this->render('DellaertDCIMBundle:Company:edit.html.twig');
+		$this->get("white_october_breadcrumbs")->addItem("Unkown bank account", '');
+		return $this->render('DellaertDCIMBundle:BankAccount:edit.html.twig');
 	}
 	
 	public function deleteAction($id)
 	{
-		$entity = $this->getDoctrine()->getRepository('DellaertDCIMBundle:Company')->find($id);
+		$entity = $this->getDoctrine()->getRepository('DellaertDCIMBundle:BankAccount')->find($id);
 		$this->get("white_october_breadcrumbs")
 			->addItem("Home", $this->get("router")->generate("homepage"))
-			->addItem("Companies", $this->get("router")->generate("CompanyList"));
+			->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
-				->addItem($entity->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$entity->getSlug())))
+				->addItem($entity->getBankAccountName(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$entity->getSlug())))
 				->addItem("Delete",'');
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($entity);
 			$em->flush();
-			return $this->render('DellaertDCIMBundle:Company:delete.html.twig',array('entity'=>$entity));
+			return $this->render('DellaertDCIMBundle:BankAccount:delete.html.twig',array('entity'=>$entity));
 		}
-		$this->get("white_october_breadcrumbs")->addItem("Unkown company", '');
-		return $this->render('DellaertDCIMBundle:Company:delete.html.twig');
+		$this->get("white_october_breadcrumbs")->addItem("Unkown bank account", '');
+		return $this->render('DellaertDCIMBundle:BankAccount:delete.html.twig');
 	}
 	
 	public function createAddEditForm($entity)
 	{
 		$fb = $this->createFormBuilder($entity);
-		$fb->add('companyName','text',array('max_length'=>255,'required'=>true,'label'=>'Name'));
-		$fb->add('street','text',array('max_length'=>255,'required'=>false,'label'=>'Street'));
-		$fb->add('streetnumber','text',array('max_length'=>255,'required'=>false,'label'=>'Street number'));
-		$fb->add('postalcode','text',array('max_length'=>255,'required'=>false,'label'=>'Postal code'));
-		$fb->add('city','text',array('max_length'=>255,'required'=>false,'label'=>'City'));
-		$fb->add('country','country',array('preferred_choices'=>array('BE')));
-		$fb->add('centralTelephone','text',array('max_length'=>255,'required'=>false,'label'=>'Telephone'));
-		$fb->add('centralEmail','email',array('max_length'=>255,'required'=>false,'label'=>'E-mail'));
-		$fb->add('vatNumber','text',array('max_length'=>255,'required'=>false,'label'=>'VAT'));
+		$fb->add('accountNumber','text',array('max_length'=>255,'required'=>true,'label'=>'Account number'));
+		$fb->add('accountName','text',array('max_length'=>255,'required'=>true,'label'=>'Account name'));
+		$fb->add('personal','checkbox',array('required'=>true,'label'=>'Personal account'));
 		return $fb->getForm();
 	}
+
 }

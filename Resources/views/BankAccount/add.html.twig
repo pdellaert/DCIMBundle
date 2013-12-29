@@ -1,0 +1,19 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if form is defined %}
+		<h1>Add bank account</h1>
+		<form action="{{ path('BankAccountAdd') }}" method="post" {{ form_enctype(form) }}>
+			{{ form_widget(form) }}
+			<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Clear" /><a href="{{ path('BankAccountList') }}" class="button right delete">Cancel</a>
+		</form>
+	{% elseif entity is defined %}
+		<script type="text/javascript">
+		setTimeout(function() {
+			  window.location.href = "{{ path('BankAccountList') }}";
+			}, 3000);
+		</script>
+		<h1>Bank account added: {{ entity.accountName }}</h1>
+		<p>You will be returned to the bank account list in 3 seconds...</p>
+	{% endif %}
+{% endblock %}

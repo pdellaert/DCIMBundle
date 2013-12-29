@@ -1,0 +1,27 @@
+BankAccountList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:BankAccount:list}
+        
+BankAccountListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:BankAccount:listData}
+
+BankAccountAdd:
+    pattern: /add
+    defaults: { _controller: DellaertDCIMBundle:BankAccount:add}
+
+BankAccountEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:BankAccount:edit}
+    requirements:
+        id: \d+
+
+BankAccountDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:BankAccount:delete}
+    requirements:
+        id: \d+
+
+BankAccountViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:BankAccount:view}
