@@ -91,6 +91,23 @@ class BankAccountController extends Controller
 		return $response;
 	}
 	
+	public function viewAction($slug)
+	{
+		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:BankAccount');
+		$entity = $repository->findOneBySlug($slug);
+		
+		$this->get("white_october_breadcrumbs")
+			->addItem("Home", $this->get("router")->generate("homepage"))
+				->addItem("Bank accounts", $this->get("router")->generate("BankAccountList"));
+		if( $entity ) {
+			$this->get("white_october_breadcrumbs")->addItem($entity->getAccountNumber(), $this->get("router")->generate("BankAccountViewSlug",array('slug'=>$slug)));
+		} else {
+			$this->get("white_october_breadcrumbs")->addItem("Unkown bank account", '');
+		}
+		
+		return $this->render('DellaertDCIMBundle:BankAccount:view.html.twig',array('entity'=>$entity));
+	}
+	
 	public function addAction()
 	{
 		$entity = new BankAccount();
