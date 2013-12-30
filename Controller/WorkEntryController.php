@@ -100,7 +100,7 @@ class WorkEntryController extends Controller
 		
 		$this->get("white_october_breadcrumbs")
 			->addItem("Home", $this->get("router")->generate("homepage"))
-			->add("Companies", $this->get("router")->generate("CompanyList"));
+			->addItem("Companies", $this->get("router")->generate("CompanyList"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
 				->addItem($entity->getIssue()->getProject()->getCompany()->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$entity->getIssue()->getProject()->getCompany()->getSlug())))
