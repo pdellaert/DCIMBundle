@@ -1,0 +1,16 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+    	<script type="text/javascript">
+    	setTimeout(function() {
+    		  window.location.href = "{{ path('PersonalExpenseList') }}";
+    		}, 3000);
+    	</script>
+    	<h1>Personal expense deleted: {{ entity.title }}</h1>
+    	<p>You will be returned to the personal expense list in 3 seconds...</p>
+    {% else %}
+		<h1>Unknown personal expense</h1>
+		<p>The specified personal expense is not available.</p>
+    {% endif %}
+{% endblock %}

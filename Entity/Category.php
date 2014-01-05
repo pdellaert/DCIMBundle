@@ -87,12 +87,18 @@ class Category
 	 * @ORM\OneToMany(targetEntity="incomingInvoice", mappedBy="category")
 	 */
 	protected $incomingInvoices;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="personalExpense", mappedBy="category")
+	 */
+	protected $personalExpenses;
 	
 	
 	public function __construct() {
 		$this->children = new ArrayCollection();
 		$this->outgoingInvoices = new ArrayCollection();
 		$this->incomingInvoices = new ArrayCollection();
+		$this->personalExpenses = new ArrayCollection();
 	}
 	
 	public function preInsert()
@@ -291,10 +297,10 @@ class Category
 	/**
 	 * Add incomingInvoices
 	 *
-	 * @param \Dellaert\DCIMBundle\Entity\incomingInvoice $incomingInvoices
+	 * @param \Dellaert\DCIMBundle\Entity\IncomingInvoice $incomingInvoices
 	 * @return Category
 	 */
-	public function addIncomingInvoice(\Dellaert\DCIMBundle\Entity\incomingInvoice $incomingInvoices)
+	public function addIncomingInvoice(\Dellaert\DCIMBundle\Entity\IncomingInvoice $incomingInvoices)
 	{
 		$this->incomingInvoices[] = $incomingInvoices;
 	
@@ -304,9 +310,9 @@ class Category
 	/**
 	 * Remove incomingInvoices
 	 *
-	 * @param \Dellaert\DCIMBundle\Entity\incomingInvoice $incomingInvoices
+	 * @param \Dellaert\DCIMBundle\Entity\IncomingInvoice $incomingInvoices
 	 */
-	public function removeIncomingInvoice(\Dellaert\DCIMBundle\Entity\incomingInvoice $incomingInvoices)
+	public function removeIncomingInvoice(\Dellaert\DCIMBundle\Entity\IncomingInvoice $incomingInvoices)
 	{
 		$this->incomingInvoices->removeElement($incomingInvoices);
 	}
@@ -319,6 +325,39 @@ class Category
 	public function getIncomingInvoices()
 	{
 		return $this->incomingInvoices;
+	}
+
+	/**
+	 * Add personalExpenses
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\PersonalExpense $personalExpense
+	 * @return Category
+	 */
+	public function addPersonalExpense(\Dellaert\DCIMBundle\Entity\PersonalExpense $personalExpense)
+	{
+		$this->personalExpenses[] = $personalExpense;
+	
+		return $this;
+	}
+
+	/**
+	 * Remove personalExpenses
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\PersonalExpense $personalExpense
+	 */
+	public function removePersonalExpense(\Dellaert\DCIMBundle\Entity\PersonalExpense $personalExpense)
+	{
+		$this->personalExpenses->removeElement($personalExpense);
+	}
+
+	/**
+	 * Get personalExpenses
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getPersonalExpenses()
+	{
+		return $this->personalExpenses;
 	}
 
 	/**

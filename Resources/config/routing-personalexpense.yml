@@ -1,0 +1,40 @@
+PersonalExpenseList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:list}
+
+PersonalExpenseListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:listData}
+
+PersonalExpenseAdd:
+    pattern: /add/
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:add}
+
+PersonalExpenseEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:edit}
+    requirements:
+        id: \d+
+
+PersonalExpenseDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:delete}
+    requirements:
+        id: \d+
+
+PersonalExpenseViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:view}
+
+PersonalExpenseSetPayed:
+    pattern: /{status}/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:payed}
+    requirements:
+        status: payed|unpayed
+        id: \d+
+
+PersonalExpenseDownload:
+    pattern: /download/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalExpense:download}
+    requirements:
+        id: \d+

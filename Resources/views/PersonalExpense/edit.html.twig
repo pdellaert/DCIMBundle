@@ -1,0 +1,22 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if form is defined %}
+	    <h1>Edit personal expense: {{ entity.title }}</h1>
+	    <form action="{{ path('PersonalExpenseEdit', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+	    	{{ form_widget(form) }}
+	    	<input class="button save left" type="submit" value="Save" /><input class="button middle" type="reset" value="Reset" /><a href="{{ path('PersonalExpenseViewSlug',{ 'slug': entity.slug }) }}" class="button right delete">Cancel</a>
+	    </form>
+    {% elseif entity is defined %}
+    	<script type="text/javascript">
+    	setTimeout(function() {
+    		  window.location.href = "{{ path('PersonalExpenseViewSlug',{ 'slug': entity.slug }) }}";
+    		}, 3000);
+    	</script>
+    	<h1>Personal expense changed: {{ entity.title }}</h1>
+    	<p>You will be returned to the personal expense's page in 3 seconds...</p>
+    {% else %}
+		<h1>Unknown personal expense</h1>
+		<p>The specified personal expense is not available.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity %}
+		<script type="text/javascript">
+			function confirmDelete() {
+				if( confirm('Are you sure you want to delete this personal expense?') ) {
+					window.location = "{{ path('PersonalExpenseDelete',{ 'id': entity.id }) }}";
+				}
+			}
+		</script>
+		{% spaceless %}
+		<div id="entitybuttons">
+				{% if entity.payed == 1 %}
+					<a href="{{ path('PersonalExpenseSetPayed',{ 'id': entity.id, 'status': 'unpayed' }) }}" class="button left">Set unpayed</a>
+				{% else %}
+					<a href="{{ path('PersonalExpenseSetPayed',{ 'id': entity.id, 'status': 'payed' }) }}" class="button left">Set payed</a>
+				{% endif %}
+					<a href="{{ path('PersonalExpenseDownload',{ 'id': entity.id }) }}" class="button middle">PDF</a>
+					<a href="{{ path('PersonalExpenseEdit',{ 'id': entity.id }) }}" class="button middle">Edit</a>
+					<a href="javascript:confirmDelete()" class="button right">Delete</a>
+		</div>
+		{% endspaceless %}
+		<h1>Personal expense: {{ entity.expenseNumber }} - {{ entity.title }}</h1>
+		<table cellspacing="0">
+			<tr>
+				<th width="20%">Amount</th>
+				<td width="30%">{{ entity.amount }} euro</td>
+				<th width="20%">Category</th>
+				<td width="30%">{{ entity.category.title }}</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>{{ entity.date.format('Y-m-d') }}</td>
+				<th>Due date</th>
+				<td>{{ entity.dueDate.format('Y-m-d') }}</td>
+			</tr>
+			<tr>
+				<th>Payed</th>
+				<td>{% if entity.payed == 1 %}Yes{% else %}No{% endif %}</td>
+				<th></th>
+				<td></td>
+			</tr>
+		</table>
+	{% else %}
+		<h1>Unknown personal expense</h1>
+		<p>The specified personal expense is not available.</p>
+	{% endif %}
+{% endblock %}
