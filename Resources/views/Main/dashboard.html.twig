@@ -2,6 +2,7 @@
 
 {% block content %}
 	{% if app.user %}
+		{% set user = app.user %}
 		{% if app.user.company %}
 			{% set company = app.user.company %}
 			<script type="text/javascript">
@@ -41,7 +42,7 @@
 		    </table>
 		    {% spaceless %}
 		    <div id="tabbuttons">
-		    	<a href="{{ path('CompanyOpenInvoice', { 'id': company.id }) }}" class="button left">Open invoices</a>
+		    	<a href="{{ path('CompanyOpenInvoice', { 'cid': company.id, 'uid': user.id }) }}" class="button left">Open invoices</a>
 		    	<a href="{{ path('CompanyRevenueExpenses') }}" class="button middle">Revenue/Expenses</a>
 		    	<a href="{{ path('CompanyVat') }}" class="button middle">VAT</a>
 			   	<a href="{{ path('CompanyActivity') }}" class="button right">Activity</a>

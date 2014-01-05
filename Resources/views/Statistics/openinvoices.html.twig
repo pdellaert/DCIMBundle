@@ -1,120 +1,6 @@
-<script type="text/javascript"> 
-	var outchart;
-	var inchart;
-	$(document).ready(function() {
-		outchart = new Highcharts.Chart({
-			chart: {
-				renderTo: 'openoutgoinginvoicesgraphs',
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false
-			},
-			credits: {
-				enabled: false
-			},
-			title: {
-				text: 'Open revenue per company and date'
-			},
-			tooltip: {
-				formatter: function() {
-					return '<b>'+ this.point.name +'</b>: '+ this.y +' euro';
-				}
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-						color: '#4a4a4a',
-						connectorColor: '#4a4a4a',
-						formatter: function() {
-							return '<b>'+ this.point.name +'</b>';
-						}
-					}
-				}
-			},
-		    series: [{
-				type: 'pie',
-				name: 'Open revenue per company',
-				data: [
-					{% for company,value in outgoingPerCompany %}
-						['{{ company }}', {{ value }}],
-					{% endfor %}
-				],
-				center: [250,100],
-		    	size: 175
-			}, {
-				type: 'pie',
-				name: 'Open revenue per date',
-				data: [
-					{% for date,value in outgoingPerDate %}
-						['{{ date }}', {{ value }}],
-					{% endfor %}
-				],
-				center: [650,100],
-		    	size: 175
-			}]
-		});
-		inchart = new Highcharts.Chart({
-			chart: {
-				renderTo: 'openincominginvoicesgraphs',
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false
-			},
-			credits: {
-				enabled: false
-			},
-			title: {
-				text: 'Open expenses per category and date'
-			},
-			tooltip: {
-				formatter: function() {
-					return '<b>'+ this.point.name +'</b>: '+ this.y +' euro';
-				}
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-						color: '#4a4a4a',
-						connectorColor: '#4a4a4a',
-						formatter: function() {
-							return '<b>'+ this.point.name +'</b>';
-						}
-					}
-				}
-			},
-		    series: [{
-				type: 'pie',
-				name: 'Open expenses per category',
-				data: [
-					{% for category,value in incomingPerCategory %}
-						['{{ category }}', {{ value }}],
-					{% endfor %}
-				],
-				center: [250,100],
-		    	size: 175
-			}, {
-				type: 'pie',
-				name: 'Open expenses per date',
-				data: [
-					{% for date,value in incomingPerDate %}
-						['{{ date }}', {{ value }}],
-					{% endfor %}
-				],
-				center: [650,100],
-		    	size: 175
-			}]
-		});
-	});
-</script>
+
 <script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/sorttable.js') }}"></script>
 <h2>Open revenue</h2>
-<div id="openoutgoinginvoicesgraphs" style="width: 900px; height: 300px; margin: 0 auto;"></div>
 <table cellspacing="0" class="sortable">
 	<thead>
 	 	<tr>
@@ -154,8 +40,7 @@
 		</tr>
 	</tfoot>
 </table>
-<h2>Open expenses</h2>
-<div id="openincominginvoicesgraphs" style="width: 900px; height: 300px; margin: 0 auto;"></div>
+<h2>Open company expenses</h2>
 <table cellspacing="0" class="sortable">
 	<thead>
 	 	<tr>
@@ -190,6 +75,41 @@
 			<th colspan="4" class="textright"><b>Total</b></th>
 			<th class="textright">{{ incomingTotal }}</th>
 			<th class="textright">{{ incomingTotalWVAT }}</th>
+		</tr>
+	</tfoot>
+</table>
+<h2>Open personal expenses</h2>
+<table cellspacing="0" class="sortable">
+	<thead>
+	 	<tr>
+	 		<th width="1%"></th>
+			<th>Number</th>
+			<th>Title</th>
+			<th width="12%">Due</th>
+			<th width="12%" class="textright">Amount</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for expense in personalExpenses %}
+			<tr>
+				<td>{% spaceless %}
+					{% if expense.dueState == 'alert' %}
+						<img src="{{ asset('bundles/dellaertdcim/_img/alert.png') }}" alt="alert" />
+					{% elseif expense.dueState == 'warning' %}
+						<img src="{{ asset('bundles/dellaertdcim/_img/warning.png') }}" alt="warning" />
+					{% endif %}
+				{% endspaceless %}</td>
+				<td><a href="{{ path('PersonalExpenseViewSlug', { 'slug': expense.slug }) }}">{{ expense.expenseNumber }}</a></td>
+				<td>{{ expense.title }}</td>
+				<td>{{ expense.dueDate.format('Y-m-d') }}</td>
+				<td class="textright">{{ expense.amount }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4" class="textright"><b>Total</b></th>
+			<th class="textright">{{ expenseTotal }}</th>
 		</tr>
 	</tfoot>
 </table>

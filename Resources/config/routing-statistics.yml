@@ -1,8 +1,9 @@
 CompanyOpenInvoice:
-    pattern: /openinvoices/{id}
+    pattern: /openinvoices/{uid}/{cid}
     defaults: { _controller: DellaertDCIMBundle:Statistics:openInvoices}
     requirements:
-        id: \d+
+        cid: \d+
+        uid: \d+
 
 CompanyRevenueExpenses:
     pattern: /companyrevenueexpenses

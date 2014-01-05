@@ -2,84 +2,57 @@
 namespace Dellaert\DCIMBundle\Controller;
 
 use Dellaert\DCIMBundle\Entity\WorkEntry;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dellaert\DCIMBundle\Entity\Company;
 use Dellaert\DCIMBundle\Entity\OutgoingInvoice;
+use Dellaert\DCIMBundle\Entity\IncomingInvoice;
+use Dellaert\DCIMBundle\Entity\PersonalExpense;
 
 class StatisticsController extends Controller
 {
-	public function openInvoicesAction($id)
+	public function openInvoicesAction($uid,$cid)
 	{
 		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:OutgoingInvoice');
 		$qb = $repository->createQueryBuilder('c');
 		$qb->add('where','c.originCompany = :companyId and c.payed = :payed')
 			->add('orderBy','c.invoiceNumber')
-			->setParameters(array('companyId'=>$id,'payed'=>false));
+			->setParameters(array('companyId'=>$cid,'payed'=>false));
 		$query = $qb->getQuery();
 		$outgoingInvoices = $query->getResult();
-		$outgoingPerCompany = array();
-		$outgoingPerDate = array();
 		$outgoingTotal = 0;
 		$outgoingTotalWVAT = 0;
 		foreach( $outgoingInvoices as $invoice ) {
-			$c = $invoice->getProject()->getCompany()->getCompanyName();
-			$d = $invoice->getDate()->format('Y-m-d');
-			if( array_key_exists($c,$outgoingPerCompany) ) {
-				$outgoingPerCompany[$c] += $invoice->getTotalWoVAT();
-			} else {
-				$outgoingPerCompany[$c] = $invoice->getTotalWoVAT();
-			}
-			if( array_key_exists($d,$outgoingPerDate) ) {
-				$outgoingPerDate[$d] += $invoice->getTotalWoVAT();
-			} else {
-				$outgoingPerDate[$d] = $invoice->getTotalWoVAT();
-			}
 			$outgoingTotalWVAT += $invoice->getTotalWithVAT();
 			$outgoingTotal += $invoice->getTotalWoVAT();
-		}
-		foreach( $outgoingPerCompany as $key => $value ) {
-			$outgoingPerCompany[$key] = number_format($value,2,'.','');
-		}
-		foreach( $outgoingPerDate as $key => $value ) {
-			$outgoingPerDate[$key] = number_format($value,2,'.','');
 		}
 		
 		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:IncomingInvoice');
 		$qb = $repository->createQueryBuilder('c');
 				$qb->add('where','c.targetCompany = :companyId and c.payed = :payed')
 					->add('orderBy','c.dueDate')
-					->setParameters(array('companyId'=>$id,'payed'=>false));
+					->setParameters(array('companyId'=>$cid,'payed'=>false));
 		$query = $qb->getQuery();
 		$incomingInvoices = $query->getResult();
-		$incomingPerCategory = array();
-		$incomingPerDate = array();
 		$incomingTotal = 0;
 		$incomingTotalWVAT = 0;
 		foreach( $incomingInvoices as $invoice ) {
-			$c = $invoice->getCategory()->getTitle();
-			$d = $invoice->getDate()->format('Y-m-d');
-			if( array_key_exists($c,$incomingPerCategory) ) {
-				$incomingPerCategory[$c] += $invoice->getTotalWoVAT();
-			} else {
-				$incomingPerCategory[$c] = $invoice->getTotalWoVAT();
-			}
-			if( array_key_exists($d,$incomingPerDate) ) {
-				$incomingPerDate[$d] += $invoice->getTotalWoVAT();
-			} else {
-				$incomingPerDate[$d] = $invoice->getTotalWoVAT();
-			}
 			$incomingTotalWVAT += $invoice->getTotalWithVAT();
 			$incomingTotal += $invoice->getTotalWoVAT();
 		}
-		foreach( $incomingPerCategory as $key => $value ) {
-			$incomingPerCategory[$key] = number_format($value,2,'.','');
-		}
-		foreach( $incomingPerDate as $key => $value ) {
-			$incomingPerDate[$key] = number_format($value,2,'.','');
+		
+		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:PersonalExpense');
+		$qb = $repository->createQueryBuilder('c');
+				$qb->add('where','c.createdBy = :userId and c.payed = :payed')
+					->add('orderBy','c.dueDate')
+					->setParameters(array('userId'=>$uid,'payed'=>false));
+		$query = $qb->getQuery();
+		$personalExpenses = $query->getResult();
+		$expenseTotal = 0;
+		foreach( $personalExpenses as $expense ) {
+			$expenseTotal += $expense->getAmount();
 		}
 		
-		return $this->render('DellaertDCIMBundle:Statistics:openinvoices.html.twig',array('outgoingInvoices'=>$outgoingInvoices,'outgoingTotal'=>number_format($outgoingTotal,'2','.',''),'outgoingTotalWVAT'=>number_format($outgoingTotalWVAT,'2','.',''),'outgoingPerCompany'=>$outgoingPerCompany,'outgoingPerDate'=>$outgoingPerDate,'incomingInvoices'=>$incomingInvoices,'incomingTotal'=>number_format($incomingTotal,'2','.',''),'incomingTotalWVAT'=>number_format($incomingTotalWVAT,'2','.',''),'incomingPerCategory'=>$incomingPerCategory,'incomingPerDate'=>$incomingPerDate));
+		return $this->render('DellaertDCIMBundle:Statistics:openinvoices.html.twig',array('outgoingInvoices'=>$outgoingInvoices,'outgoingTotal'=>number_format($outgoingTotal,'2','.',''),'outgoingTotalWVAT'=>number_format($outgoingTotalWVAT,'2','.',''),'incomingInvoices'=>$incomingInvoices,'incomingTotal'=>number_format($incomingTotal,'2','.',''),'incomingTotalWVAT'=>number_format($incomingTotalWVAT,'2','.',''),'personalExpenses'=>$personalExpenses,'expenseTotal'=>number_format($expenseTotal,'2','.','')));
 	}
 
 	public function companyRevenueExpensesAction() {
