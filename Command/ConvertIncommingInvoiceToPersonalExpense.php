@@ -1,7 +1,7 @@
 <?php
 namespace Dellaert\DCIMBundle\Command;
 
-use Symfony\Component\Console\Command\Command;
+Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Dellaert\DCIMBundle\Entity\IncommingInvoice;
 use Dellaert\DCIMBundle\Entity\PersonalExpense;
 
-class ConvertIncommingInvoiceToPersonalExpense extends Command
+class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 {
 	protected function configure()
 	{
@@ -37,7 +37,9 @@ class ConvertIncommingInvoiceToPersonalExpense extends Command
 		$numberStart = $input->getOption('number-start');
 		$test = $input->getOption('test');
 
-		$repository = $this->getDoctrine()->getRepository('DCIM:IncommingInvoice');
+		$db = $this->getContainer('doctrine');
+
+		$repository = $db->getRepository('DCIM:IncommingInvoice');
 		$qb = $repository->createQueryBuilder('c');
 		if( $searchquery != '' && $searchtype != '' ) {
 			$qb->add('where',$qb->expr()->like('c.invoiceNumber', $qb->expr()->literal($numberStart.'%')));
@@ -67,7 +69,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends Command
 			if($test) {
 				echo('Created Personal Expense: '.$pe->getExpenseNumber().' - '.$pe->getTitle()."\n");
 			} else {
-				$em = $this->getDoctrine()->getManager();
+				$em = $db->getManager();
 				$em->persist($pe);
 				$em->flush();
 			}
