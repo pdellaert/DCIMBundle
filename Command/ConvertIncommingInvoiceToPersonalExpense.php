@@ -41,9 +41,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 
 		$repository = $db->getRepository('DellaertDCIMBundle:IncomingInvoice');
 		$qb = $repository->createQueryBuilder('c');
-		if( $searchquery != '' && $searchtype != '' ) {
-			$qb->add('where',$qb->expr()->like('c.invoiceNumber', $qb->expr()->literal($numberStart.'%')));
-		}
+		$qb->add('where',$qb->expr()->like('c.invoiceNumber', $qb->expr()->literal($numberStart.'%')));
 		$query = $qb->getQuery();
 		$results = $query->getResult();
 
