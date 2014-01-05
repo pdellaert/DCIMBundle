@@ -94,7 +94,8 @@ class PersonalRevenueController extends Controller
 		$entity = $repository->findOneBySlug($slug);
 		
 		$this->get("white_october_breadcrumbs")
-			->addItem("Home", $this->get("router")->generate("homepage"));
+			->addItem("Home", $this->get("router")->generate("homepage"))
+			->addItem("Personal revenue",$this->get("router")->generate("PersonalRevenueList"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
 				->addItem($entity->getRevenueNumber().' - '.$entity->getTitle(), $this->get("router")->generate("PersonalRevenueViewSlug",array('slug'=>$slug)));
@@ -206,8 +207,8 @@ class PersonalRevenueController extends Controller
 		->addItem("Home", $this->get("router")->generate("homepage"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
-				->add($entity->getRevenueNumber().' - '.$entity->getTitle(), $this->get("router")->generate("PersonalRevenueViewSlug",array('slug'=>$entity->getSlug())))
-				->add("Delete",'');
+				->addItem($entity->getRevenueNumber().' - '.$entity->getTitle(), $this->get("router")->generate("PersonalRevenueViewSlug",array('slug'=>$entity->getSlug())))
+				->addItem("Delete",'');
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($entity);
 			$em->flush();

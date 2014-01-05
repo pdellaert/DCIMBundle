@@ -221,8 +221,8 @@ class IncomingInvoiceController extends Controller
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
 				->addItem($entity->getTargetCompany()->getCompanyName(), $this->get("router")->generate("CompanyViewSlug",array('slug'=>$entity->getTargetCompany()->getSlug())))
-				->add($entity->getInvoiceNumber().' - '.$entity->getTitle(), $this->get("router")->generate("IncomingInvoiceViewSlug",array('slug'=>$entity->getSlug())))
-				->add("Delete",'');
+				->addItem($entity->getInvoiceNumber().' - '.$entity->getTitle(), $this->get("router")->generate("IncomingInvoiceViewSlug",array('slug'=>$entity->getSlug())))
+				->addItem("Delete",'');
 			$this->get('session')->set('return_url',$this->get('router')->generate('CompanyViewSlug', array('slug'=>$entity->getTargetCompany()->getSlug())));
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($entity);

@@ -94,7 +94,8 @@ class PersonalExpenseController extends Controller
 		$entity = $repository->findOneBySlug($slug);
 		
 		$this->get("white_october_breadcrumbs")
-			->addItem("Home", $this->get("router")->generate("homepage"));
+			->addItem("Home", $this->get("router")->generate("homepage"))
+			->addItem("Personal expense",$this->get("router")->generate("PersonalExpenseList"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
 				->addItem($entity->getExpenseNumber().' - '.$entity->getTitle(), $this->get("router")->generate("PersonalExpenseViewSlug",array('slug'=>$slug)));
@@ -206,8 +207,8 @@ class PersonalExpenseController extends Controller
 		->addItem("Home", $this->get("router")->generate("homepage"));
 		if( $entity ) {
 			$this->get("white_october_breadcrumbs")
-				->add($entity->getExpenseNumber().' - '.$entity->getTitle(), $this->get("router")->generate("PersonalExpenseViewSlug",array('slug'=>$entity->getSlug())))
-				->add("Delete",'');
+				->addItem($entity->getExpenseNumber().' - '.$entity->getTitle(), $this->get("router")->generate("PersonalExpenseViewSlug",array('slug'=>$entity->getSlug())))
+				->addItem("Delete",'');
 			$em = $this->getDoctrine()->getManager();
 			$em->remove($entity);
 			$em->flush();
