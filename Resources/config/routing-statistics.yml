@@ -5,13 +5,13 @@ CompanyOpenInvoice:
         cid: \d+
         uid: \d+
 
-CompanyRevenueExpenses:
-    pattern: /companyrevenueexpenses
-    defaults: { _controller: DellaertDCIMBundle:Statistics:companyRevenueExpenses}
-
 CompanyVat:
     pattern: /vat
     defaults: { _controller: DellaertDCIMBundle:Statistics:vat}
+
+CompanyRevenueExpenses:
+    pattern: /companyrevenueexpenses
+    defaults: { _controller: DellaertDCIMBundle:Statistics:companyRevenueExpenses}
 
 CompanyRevenueExpensesByYear:
     pattern: /companyrevenueexpensesbyyear/{id}/{year}
@@ -36,3 +36,14 @@ CompanyLastActivity:
 CompanyActivity:
     pattern: /activity/
     defaults: { _controller: DellaertDCIMBundle:Statistics:activity}
+
+PersonalRevenueExpenses:
+    pattern: /personalrevenueexpenses
+    defaults: { _controller: DellaertDCIMBundle:Statistics:personalRevenueExpenses}
+
+PersonalRevenueExpensesByYear:
+    pattern: /personalrevenueexpensesbyyear/{id}/{year}
+    defaults: { _controller: DellaertDCIMBundle:Statistics:personalRevenueExpensesByYear}
+    requirements:
+        id: \d+
+        year: \d+

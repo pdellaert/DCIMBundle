@@ -1,0 +1,223 @@
+<script type="text/javascript"> 
+	var chart;
+	$(document).ready(function() {
+		chart = new Highcharts.Chart({
+			chart: {
+				renderTo: 'revenueexpensesbyyeargraphs',
+				defaultSeriesType: 'spline'
+			},
+			credits: {
+				enabled: false
+			},
+			legend: {
+				enabled: false
+			},
+			title: {
+				text: 'Revenue for {{ year }}'
+			},
+			xAxis: {
+				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+			},
+			yAxis: {
+				title: {
+					text: 'Revenue/Expenses (euro)'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#4a4a4a'
+				}]
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.series.name +'</b><br />' + this.x + ': ' + this.y +' euro';
+				}
+			},
+		    series: [{
+			    name: 'Revenue',
+				data: [
+					{% for month,value in revenuePerMonth %}
+						{{ value }}{% if loop.last %}{% else %},{% endif %}
+					{% endfor %}
+				]
+			},{
+			    name: 'Expenses',
+				data: [
+					{% for month,value in expensePerMonth %}
+						-{{ value }}{% if loop.last %}{% else %},{% endif %}
+					{% endfor %}
+				]
+			},{
+			    name: 'Result',
+				data: [
+					{% for month,value in resultPerMonth %}
+						{{ value }}{% if loop.last %}{% else %},{% endif %}
+					{% endfor %}
+				]
+			}]
+		});
+		chart2 = new Highcharts.Chart({
+			chart: {
+				renderTo: 'expensesbyyeargraphs',
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
+			},
+			credits: {
+				enabled: false
+			},
+			title: {
+				text: 'Expenses per category and month'
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ this.y +' euro';
+				}
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						color: '#4a4a4a',
+						connectorColor: '#4a4a4a',
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>';
+						}
+					}
+				}
+			},
+		    series: [{
+				type: 'pie',
+				name: 'Expenses per category',
+				data: [
+					{% for category,value in expensePerCategory %}
+						['{{ category }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [250,100],
+		    	size: 175
+			}, {
+				type: 'pie',
+				name: 'Expenses per month',
+				data: [
+					{% for month,value in inPerMonth %}
+						{% if value != 0 %}
+							['{{ month }}', {{ value }}],
+						{% endif %}
+					{% endfor %}
+				],
+				center: [650,100],
+		    	size: 175
+			}]
+		});
+		chart3 = new Highcharts.Chart({
+			chart: {
+				renderTo: 'revenuebyyeargraphs',
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
+			},
+			credits: {
+				enabled: false
+			},
+			title: {
+				text: 'Revenue per category and month'
+			},
+			tooltip: {
+				formatter: function() {
+					return '<b>'+ this.point.name +'</b>: '+ this.y +' euro';
+				}
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						color: '#4a4a4a',
+						connectorColor: '#4a4a4a',
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>';
+						}
+					}
+				}
+			},
+		    series: [{
+				type: 'pie',
+				name: 'Revenue per category',
+				data: [
+					{% for category,value in revenuePerCategory %}
+						['{{ category }}', {{ value }}],
+					{% endfor %}
+				],
+				center: [250,100],
+		    	size: 175
+			}, {
+				type: 'pie',
+				name: 'Revenue per month',
+				data: [
+					{% for month,value in inPerMonth %}
+						{% if value != 0 %}
+							['{{ month }}', {{ value }}],
+						{% endif %}
+					{% endfor %}
+				],
+				center: [650,100],
+		    	size: 175
+			}]
+		});
+	});
+</script>
+<script type="text/javascript" src="{{ asset('bundles/dellaertdcim/_js/sorttable.js') }}"></script>
+<h2>{{ year }} overview</h2>
+<div id="revenueexpensesbyyeargraphs" style="width: 90%; height: 300px; margin: 0 auto;"></div>
+<h2>Expenses in {{ year }} per category</h2>
+<div id="expensesbyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
+<table cellspacing="0" class="sortable">
+	<thead>
+	 	<tr>
+			<th>Category</th>
+			<th width="20%" class="textright">Amount (w/o VAT)</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for category,value in expensePerCategory %}
+			<tr>
+				<td>{{ category }}</td>
+				<td class="textright">{{ value }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="textright"><b>Total</b></th>
+			<th class="textright">{{ expenseTotal }}</th>
+		</tr>
+	</tfoot>
+</table>
+<h2>Revenue in {{ year }} per category</h2>
+<div id="revenuebyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
+<table cellspacing="0" class="sortable">
+	<thead>
+	 	<tr>
+			<th>Category</th>
+			<th width="20%" class="textright">Amount (w/o VAT)</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for category,value in revenuePerCategory %}
+			<tr>
+				<td>{{ category }}</td>
+				<td class="textright">{{ value }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th class="textright"><b>Total</b></th>
+			<th class="textright">{{ revenueTotal }}</th>
+		</tr>
+	</tfoot>
+</table>

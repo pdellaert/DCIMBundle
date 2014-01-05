@@ -136,13 +136,103 @@ class StatisticsController extends Controller
 		foreach( $inPerMonth as $key => $value ) {
 			$inPerMonth[$key] = number_format($inPerMonth[$key],2,'.','');
 			$outPerMonth[$key] = number_format($outPerMonth[$key],2,'.','');
-		$resultPerMonth[$key] = number_format($outPerMonth[$key]-$inPerMonth[$key],2,'.','');
+			$resultPerMonth[$key] = number_format($outPerMonth[$key]-$inPerMonth[$key],2,'.','');
 		}
 
 		arsort($outPerCompany);
 		arsort($inPerCategory);
 
 		return $this->render('DellaertDCIMBundle:Statistics:companyrevenueexpensesbyyear.html.twig',array('year'=>$year,'outInvoices'=>$outInvoices,'outTotal'=>number_format($outTotal,'2','.',''),'outPerCompany'=>$outPerCompany,'outPerMonth'=>$outPerMonth,'inInvoices'=>$inInvoices,'inTotal'=>number_format($inTotal,'2','.',''),'inPerCategory'=>$inPerCategory,'inPerMonth'=>$inPerMonth,'resultPerMonth'=>$resultPerMonth));
+	}
+
+	public function personalRevenueExpensesAction() {
+		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:PersonalExpense');
+		$qb = $repository->createQueryBuilder('c');
+		$qb->add('orderBy','c.date ASC')
+			->setFirstResult(0)
+			->setMaxResults(1);
+		$query = $qb->getQuery();
+		$expense = $query->getSingleResult();
+		$years = array();
+		if( $expense ) {
+			$now = new \DateTime();
+			for( $y = $expense->getDate()->format('Y'); $y <= $now->format('Y'); $y++ ) {
+				$years[] = $y;
+			}
+		}
+		return $this->render('DellaertDCIMBundle:Statistics:personalrevenueexpenses.html.twig',array('years'=>$years));
+	}
+
+	public function personalRevenueExpensesByYearAction($id,$year)
+	{
+		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:PersonalExpense');
+		$qb = $repository->createQueryBuilder('c');
+		$qb->add('where','c.createdBy = :userId and c.date LIKE :year')
+			->add('orderBy','c.date')
+			->setParameters(array('userId'=>$id,'year'=>$year.'%'));
+		$query = $qb->getQuery();
+		$personalExpenses = $query->getResult();
+		$expensePerCategory = array();
+		$expensePerMonth = array('01'=>0,'02'=>0,'03'=>0,'04'=>0,'05'=>0,'06'=>0,'07'=>0,'08'=>0,'09'=>0,'10'=>0,'11'=>0,'12'=>0);
+		$expenseTotal = 0;
+		foreach( $personalExpenses as $expense ) {
+			$c = $expense->getCategory()->getTitle();
+			$d = $expense->getDate()->format('m');
+			if( array_key_exists($c,$expensePerCategory) ) {
+				$expensePerCategory[$c] += $expense->getAmount();
+			} else {
+				$expensePerCategory[$c] = $expense->getAmount();
+			}
+			if( array_key_exists($d,$expensePerMonth) ) {
+				$expensePerMonth[$d] += $expense->getAmount();
+			} else {
+				$expensePerMonth[$d] = $expense->getAmount();
+			}
+			$expenseTotal += $expense->getAmount();
+		}
+		foreach( $expensePerCategory as $key => $value ) {
+			$expensePerCategory[$key] = number_format($value,2,'.','');
+		}
+
+		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:PersonalRevenue');
+		$qb = $repository->createQueryBuilder('c');
+		$qb->add('where','c.createdBy = :userId and c.date LIKE :year')
+			->add('orderBy','c.date')
+			->setParameters(array('userId'=>$id,'year'=>$year.'%'));
+		$query = $qb->getQuery();
+		$personalRevenues = $query->getResult();
+		$revenuePerCategory = array();
+		$revenuePerMonth = array('01'=>0,'02'=>0,'03'=>0,'04'=>0,'05'=>0,'06'=>0,'07'=>0,'08'=>0,'09'=>0,'10'=>0,'11'=>0,'12'=>0);
+		$revenueTotal = 0;
+		foreach( $personalRevenues as $revenue ) {
+			$c = $revenue->getCategory()->getTitle();
+			$d = $revenue->getDate()->format('m');
+			if( array_key_exists($c,$revenuePerCategory) ) {
+				$revenuePerCategory[$c] += $revenue->getAmount();
+			} else {
+				$revenuePerCategory[$c] = $revenue->getAmount();
+			}
+			if( array_key_exists($d,$revenuePerMonth) ) {
+				$revenuePerMonth[$d] += $revenue->getAmount();
+			} else {
+				$revenuePerMonth[$d] = $revenue->getAmount();
+			}
+			$revenueTotal += $revenue->getAmount();
+		}
+		foreach( $revenuePerCategory as $key => $value ) {
+			$revenuePerCategory[$key] = number_format($value,2,'.','');
+		}
+		$resultPerMonth = array('01'=>0,'02'=>0,'03'=>0,'04'=>0,'05'=>0,'06'=>0,'07'=>0,'08'=>0,'09'=>0,'10'=>0,'11'=>0,'12'=>0);
+		foreach( $inPerMonth as $key => $value ) {
+			$expensePerMonth[$key] = number_format($expensePerMonth[$key],2,'.','');
+			$revenuePerMonth[$key] = number_format($revenuePerMonth[$key],2,'.','');
+			$resultPerMonth[$key] = number_format($revenuePerMonth[$key]-$expensePerMonth[$key],2,'.','');
+		}
+
+		arsort($expensePerCategory);
+		arsort($revenuePerCategory);
+
+		return $this->render('DellaertDCIMBundle:Statistics:personalrevenueexpensesbyyear.html.twig',array('year'=>$year,'personalExpenses'=>$personalExpenses,'expensePerCategory'=>$expensePerCategory,'expensePerMonth'=>$expensePerMonth,'expenseTotal'=>number_format($expenseTotal,'2','.',''),'personalRevenues'=>$personalRevenues,'revenuePerCategory'=>$revenuePerCategory,'revenuePerMonth'=>$revenuePerMonth,'revenueTotal'=>number_format($revenueTotal,'2','.',''),'resultPerMonth'=>$resultPerMonth));
 	}
 	
 	public function vatAction() {
