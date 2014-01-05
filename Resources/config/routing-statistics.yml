@@ -5,16 +5,16 @@ CompanyOpenInvoice:
         id: \d+
 
 CompanyRevenueExpenses:
-    pattern: /revenueexpenses
-    defaults: { _controller: DellaertDCIMBundle:Statistics:revenueExpenses}
+    pattern: /companyrevenueexpenses
+    defaults: { _controller: DellaertDCIMBundle:Statistics:companyRevenueExpenses}
 
 CompanyVat:
     pattern: /vat
     defaults: { _controller: DellaertDCIMBundle:Statistics:vat}
 
 CompanyRevenueExpensesByYear:
-    pattern: /revenueexpensesbyyear/{id}/{year}
-    defaults: { _controller: DellaertDCIMBundle:Statistics:revenueExpensesByYear}
+    pattern: /companyrevenueexpensesbyyear/{id}/{year}
+    defaults: { _controller: DellaertDCIMBundle:Statistics:companyRevenueExpensesByYear}
     requirements:
         id: \d+
         year: \d+

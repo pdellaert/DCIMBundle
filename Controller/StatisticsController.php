@@ -82,7 +82,7 @@ class StatisticsController extends Controller
 		return $this->render('DellaertDCIMBundle:Statistics:openinvoices.html.twig',array('outgoingInvoices'=>$outgoingInvoices,'outgoingTotal'=>number_format($outgoingTotal,'2','.',''),'outgoingTotalWVAT'=>number_format($outgoingTotalWVAT,'2','.',''),'outgoingPerCompany'=>$outgoingPerCompany,'outgoingPerDate'=>$outgoingPerDate,'incomingInvoices'=>$incomingInvoices,'incomingTotal'=>number_format($incomingTotal,'2','.',''),'incomingTotalWVAT'=>number_format($incomingTotalWVAT,'2','.',''),'incomingPerCategory'=>$incomingPerCategory,'incomingPerDate'=>$incomingPerDate));
 	}
 
-	public function revenueExpensesAction() {
+	public function companyRevenueExpensesAction() {
 		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:OutgoingInvoice');
 				$qb = $repository->createQueryBuilder('c');
 		$qb->add('orderBy','c.date ASC')
@@ -97,10 +97,10 @@ class StatisticsController extends Controller
 				$years[] = $y;
 			}
 		}
-		return $this->render('DellaertDCIMBundle:Statistics:revenueexpenses.html.twig',array('years'=>$years));
+		return $this->render('DellaertDCIMBundle:Statistics:companyrevenueexpenses.html.twig',array('years'=>$years));
 	}
 
-	public function revenueExpensesByYearAction($id,$year)
+	public function companyRevenueExpensesByYearAction($id,$year)
 	{
 		$repository = $this->getDoctrine()->getRepository('DellaertDCIMBundle:OutgoingInvoice');
 		$qb = $repository->createQueryBuilder('c');
@@ -169,7 +169,7 @@ class StatisticsController extends Controller
 		arsort($outPerCompany);
 		arsort($inPerCategory);
 
-		return $this->render('DellaertDCIMBundle:Statistics:revenueexpensesbyyear.html.twig',array('year'=>$year,'outInvoices'=>$outInvoices,'outTotal'=>number_format($outTotal,'2','.',''),'outPerCompany'=>$outPerCompany,'outPerMonth'=>$outPerMonth,'inInvoices'=>$inInvoices,'inTotal'=>number_format($inTotal,'2','.',''),'inPerCategory'=>$inPerCategory,'inPerMonth'=>$inPerMonth,'resultPerMonth'=>$resultPerMonth));
+		return $this->render('DellaertDCIMBundle:Statistics:companyrevenueexpensesbyyear.html.twig',array('year'=>$year,'outInvoices'=>$outInvoices,'outTotal'=>number_format($outTotal,'2','.',''),'outPerCompany'=>$outPerCompany,'outPerMonth'=>$outPerMonth,'inInvoices'=>$inInvoices,'inTotal'=>number_format($inTotal,'2','.',''),'inPerCategory'=>$inPerCategory,'inPerMonth'=>$inPerMonth,'resultPerMonth'=>$resultPerMonth));
 	}
 	
 	public function vatAction() {
