@@ -39,7 +39,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 
 		$db = $this->getContainer()->get('doctrine');
 
-		$repository = $db->getRepository('DellaertDCIMBundle:IncommingInvoice');
+		$repository = $db->getRepository('DellaertDCIMBundle:IncomingInvoice');
 		$qb = $repository->createQueryBuilder('c');
 		if( $searchquery != '' && $searchtype != '' ) {
 			$qb->add('where',$qb->expr()->like('c.invoiceNumber', $qb->expr()->literal($numberStart.'%')));
@@ -49,7 +49,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 
 		foreach( $results as $ii ) {
 			if($test) {
-				echo('Found Incomming Invoice: '.$ii->getInvoiceNumber().' - '.$ii->getTitle()."\n");
+				echo('Found Incoming Invoice: '.$ii->getInvoiceNumber().' - '.$ii->getTitle()."\n");
 			}
 
 			$pe = new PersonalExpense();
