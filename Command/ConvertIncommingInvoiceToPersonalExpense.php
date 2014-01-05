@@ -37,7 +37,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 		$numberStart = $input->getOption('number-start');
 		$test = $input->getOption('test');
 
-		$db = $this->getContainer('doctrine');
+		$db = $this->getContainer()->get('doctrine');
 
 		$repository = $db->getRepository('DCIM:IncommingInvoice');
 		$qb = $repository->createQueryBuilder('c');
