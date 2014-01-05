@@ -50,10 +50,10 @@ BankAccount:
     resource: "@DellaertDCIMBundle/Resources/config/routing-bankaccount.yml"
     prefix:   /bank-account
 
-BankAccount:
+PersonalExpense:
     resource: "@DellaertDCIMBundle/Resources/config/routing-personalexpense.yml"
     prefix:   /personal-expense
 
-BankAccount:
+PersonalRevenue:
     resource: "@DellaertDCIMBundle/Resources/config/routing-personalrevenue.yml"
     prefix:   /personal-revenue
