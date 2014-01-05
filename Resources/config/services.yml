@@ -1,2 +1,8 @@
 parameters:
-    dcim_invoice_template: 'Tex:invoice.tex.twig'
+    dellaert_dcim_invoice_template: 'Tex:invoice.tex.twig'
+
+services:
+    dellaert_dcim.command.convert_ii_to_pe:
+        class: Dellaert\DCIMBundle\Command\ConvertIncommingInvoiceToPersonalExpense
+        tags:
+            - { name: console.command }
