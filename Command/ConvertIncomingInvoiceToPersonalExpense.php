@@ -82,10 +82,12 @@ class ConvertIncomingInvoiceToPersonalExpense extends ContainerAwareCommand
 			if($test) {
 				echo('Copying file '.$ii->getFileDir().$ii->getFilePath().' to '.$pe->getFileDir().$pe->getFilePath()."\n");
 			} else {
-				if( !is_dir($pe->getFileDir()) ) {
-					mkdir($pe->getFileDir());
+				if( !is_file($ii->getFileDir().$ii->getFilePath()) ) {
+					if( !is_dir($pe->getFileDir()) ) {
+						mkdir($pe->getFileDir());
+					}
+					copy($ii->getFileDir().$ii->getFilePath(),$pe->getFileDir().$pe->getFilePath());
 				}
-				copy($ii->getFileDir().$ii->getFilePath(),$pe->getFileDir().$pe->getFilePath());
 			}
 
 			if($purge) {
