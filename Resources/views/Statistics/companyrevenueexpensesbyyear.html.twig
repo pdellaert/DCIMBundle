@@ -33,22 +33,22 @@
 					return '<b>'+ this.series.name +'</b><br />' + this.x + ': ' + this.y +' euro';
 				}
 			},
-		    series: [{
-			    name: 'Revenue',
+			series: [{
+				name: 'Revenue',
 				data: [
 					{% for month,value in outPerMonth %}
 						{{ value }}{% if loop.last %}{% else %},{% endif %}
 					{% endfor %}
 				]
 			},{
-			    name: 'Expenses',
+				name: 'Expenses',
 				data: [
 					{% for month,value in inPerMonth %}
 						-{{ value }}{% if loop.last %}{% else %},{% endif %}
 					{% endfor %}
 				]
 			},{
-			    name: 'Result',
+				name: 'Result',
 				data: [
 					{% for month,value in resultPerMonth %}
 						{{ value }}{% if loop.last %}{% else %},{% endif %}
@@ -88,7 +88,7 @@
 					}
 				}
 			},
-		    series: [{
+			series: [{
 				type: 'pie',
 				name: 'Revenue per company',
 				data: [
@@ -97,7 +97,7 @@
 					{% endfor %}
 				],
 				center: [250,100],
-		    	size: 175
+				size: 175
 			}, {
 				type: 'pie',
 				name: 'Revenue per month',
@@ -109,7 +109,7 @@
 					{% endfor %}
 				],
 				center: [650,100],
-		    	size: 175
+				size: 175
 			}]
 		});
 		chart3 = new Highcharts.Chart({
@@ -144,7 +144,7 @@
 					}
 				}
 			},
-		    series: [{
+			series: [{
 				type: 'pie',
 				name: 'Expenses per category',
 				data: [
@@ -153,7 +153,7 @@
 					{% endfor %}
 				],
 				center: [250,100],
-		    	size: 175
+				size: 175
 			}, {
 				type: 'pie',
 				name: 'Expenses per month',
@@ -165,8 +165,26 @@
 					{% endfor %}
 				],
 				center: [650,100],
-		    	size: 175
+				size: 175
 			}]
+		});
+
+		$('.show_hide').click(function(){
+			if( $(this).next('.slidingDiv').hasClass('expanded') ) {
+				$(this).next('.slidingDiv').slideUp(200);
+				$(this).next('.slidingDiv').removeClass('expanded');
+				$(this).next('.slidingDiv').addClass('closed');
+				$(this).removeClass('expanded');
+				$(this).addClass('closed');
+				$(this).html('Show details');
+			} else {
+				$(this).next('.slidingDiv').slideDown(200);
+				$(this).next('.slidingDiv').removeClass('closed');
+				$(this).next('.slidingDiv').addClass('expanded');
+				$(this).removeClass('closed');
+				$(this).addClass('expanded');
+				$(this).html('Hide details');
+			}
 		});
 	});
 </script>
@@ -175,55 +193,61 @@
 <div id="revenueexpensesbyyeargraphs" style="width: 90%; height: 300px; margin: 0 auto;"></div>
 <h2>Expenses in {{ year }} per category</h2>
 <div id="expensesbyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
-<table cellspacing="0" class="sortable">
-	<thead>
-	 	<tr>
-			<th>Category</th>
-			<th width="20%" class="textright">Amount (w/o VAT)</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for category,value in inPerCategory %}
+<div class="textright show_hide closed">Show details</div>
+<div class="slidingDiv">
+	<table cellspacing="0" class="sortable">
+		<thead>
 			<tr>
-				<td>{{ category }}</td>
-				<td class="textright">{{ value }}</td>
+				<th>Category</th>
+				<th width="20%" class="textright">Amount (w/o VAT)</th>
 			</tr>
-		{% endfor %}
-	</tbody>
-	<tfoot>
-		<tr>
-			<th class="textright"><b>Total</b></th>
-			<th class="textright">{{ inTotal }}</th>
-		</tr>
-	</tfoot>
-</table>
+		</thead>
+		<tbody>
+			{% for category,value in inPerCategory %}
+				<tr>
+					<td>{{ category }}</td>
+					<td class="textright">{{ value }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<th class="textright"><b>Total</b></th>
+				<th class="textright">{{ inTotal }}</th>
+			</tr>
+		</tfoot>
+	</table>
+</div>
 <h2>Revenue in {{ year }}</h2>
 <div id="revenuebyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
-<table cellspacing="0" class="sortable">
-	<thead>
-	 	<tr>
-			<th width="10%">Number</th>
-			<th>Project</th>
-			<th>Title</th>
-			<th width="12%">Date</th>
-			<th width="12%" class="textright">Amount (w/o VAT)</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for invoice in outInvoices %}
+<div class="textright show_hide closed">Show details</div>
+<div class="slidingDiv">
+	<table cellspacing="0" class="sortable">
+		<thead>
 			<tr>
-				<td><a href="{{ path('OutgoingInvoiceViewSlug', { 'slug': invoice.slug }) }}">{{ invoice.invoiceNumber }}</a></td>
-				<td>{{ invoice.project.company.companyName }} - {{ invoice.project.title }}</td>
-				<td>{{ invoice.title }}</td>
-				<td>{{ invoice.date.format('Y-m-d') }}</td>
-				<td class="textright">{{ invoice.totalWoVAT }}</td>
+				<th width="10%">Number</th>
+				<th>Project</th>
+				<th>Title</th>
+				<th width="12%">Date</th>
+				<th width="12%" class="textright">Amount (w/o VAT)</th>
 			</tr>
-		{% endfor %}
-	</tbody>
-	<tfoot>
-		<tr>
-			<th colspan="4" class="textright"><b>Total</b></th>
-			<th class="textright">{{ outTotal }}</th>
-		</tr>
-	</tfoot>
-</table>
+		</thead>
+		<tbody>
+			{% for invoice in outInvoices %}
+				<tr>
+					<td><a href="{{ path('OutgoingInvoiceViewSlug', { 'slug': invoice.slug }) }}">{{ invoice.invoiceNumber }}</a></td>
+					<td>{{ invoice.project.company.companyName }} - {{ invoice.project.title }}</td>
+					<td>{{ invoice.title }}</td>
+					<td>{{ invoice.date.format('Y-m-d') }}</td>
+					<td class="textright">{{ invoice.totalWoVAT }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="4" class="textright"><b>Total</b></th>
+				<th class="textright">{{ outTotal }}</th>
+			</tr>
+		</tfoot>
+	</table>
+</div>
