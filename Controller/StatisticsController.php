@@ -166,6 +166,9 @@ class StatisticsController extends Controller
 		$resultPerMonth[$key] = number_format($outPerMonth[$key]-$inPerMonth[$key],2,'.','');
 		}
 
+		arsort($outPerCompany);
+		arsort($inPerCategory);
+
 		return $this->render('DellaertDCIMBundle:Statistics:revenueexpensesbyyear.html.twig',array('year'=>$year,'outInvoices'=>$outInvoices,'outTotal'=>number_format($outTotal,'2','.',''),'outPerCompany'=>$outPerCompany,'outPerMonth'=>$outPerMonth,'inInvoices'=>$inInvoices,'inTotal'=>number_format($inTotal,'2','.',''),'inPerCategory'=>$inPerCategory,'inPerMonth'=>$inPerMonth,'resultPerMonth'=>$resultPerMonth));
 	}
 	
