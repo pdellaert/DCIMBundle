@@ -1,0 +1,2 @@
+parameters:
+    dcim_invoice_template: 'Tex:invoice.tex.twig'
