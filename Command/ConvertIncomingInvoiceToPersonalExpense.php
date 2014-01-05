@@ -92,14 +92,14 @@ class ConvertIncomingInvoiceToPersonalExpense extends ContainerAwareCommand
 				if($test) {
 					echo('Purging Incoming Invoice: '.$ii->getInvoiceNumber().' - '.$ii->getTitle()."\n");
 				} else {
-					$em->remove($entity);
+					$em->remove($ii);
 					$em->flush();
 				}
 
 				if($test) {
 					echo('Deleting file '.$ii->getFileDir().$ii->getFilePath()."\n");
 				} else {
-					$em->postRemove();
+					$ii->postRemove();
 				}
 			}
 
