@@ -92,6 +92,11 @@ class Category
 	 * @ORM\OneToMany(targetEntity="personalExpense", mappedBy="category")
 	 */
 	protected $personalExpenses;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="personalRevenue", mappedBy="category")
+	 */
+	protected $personalRevenues;
 	
 	
 	public function __construct() {
@@ -99,6 +104,7 @@ class Category
 		$this->outgoingInvoices = new ArrayCollection();
 		$this->incomingInvoices = new ArrayCollection();
 		$this->personalExpenses = new ArrayCollection();
+		$this->personalRevenues = new ArrayCollection();
 	}
 	
 	public function preInsert()
@@ -111,7 +117,6 @@ class Category
 	{
 		$this->updatedAt = new \DateTime();
 	}
-
 
 	/**
 	 * Get id
@@ -358,6 +363,39 @@ class Category
 	public function getPersonalExpenses()
 	{
 		return $this->personalExpenses;
+	}
+
+	/**
+	 * Add personalRevenues
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\PersonalRevenue $personalRevenue
+	 * @return Category
+	 */
+	public function addPersonalRevenue(\Dellaert\DCIMBundle\Entity\PersonalRevenue $personalRevenue)
+	{
+		$this->personalRevenues[] = $personalRevenue;
+	
+		return $this;
+	}
+
+	/**
+	 * Remove personalRevenues
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\PersonalRevenue $personalRevenue
+	 */
+	public function removePersonalRevenue(\Dellaert\DCIMBundle\Entity\PersonalRevenue $personalRevenue)
+	{
+		$this->personalRevenues->removeElement($personalRevenue);
+	}
+
+	/**
+	 * Get personalRevenues
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getPersonalRevenues()
+	{
+		return $this->personalRevenues;
 	}
 
 	/**

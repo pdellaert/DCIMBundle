@@ -49,3 +49,11 @@ Timesheets:
 BankAccount:
     resource: "@DellaertDCIMBundle/Resources/config/routing-bankaccount.yml"
     prefix:   /bank-account
+
+BankAccount:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-personalexpense.yml"
+    prefix:   /personal-expense
+
+BankAccount:
+    resource: "@DellaertDCIMBundle/Resources/config/routing-personalrevenue.yml"
+    prefix:   /personal-revenue

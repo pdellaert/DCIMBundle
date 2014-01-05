@@ -1,24 +1,24 @@
 {% extends "DellaertDCIMBundle::layout.html.twig" %}
 
 {% block content %}
-    <div id="entitybuttons"><a href="{{ path('PersonalExpenseAdd') }}" class="button add">Add</a></div>
-    <h1>Personal expenses</h1>
+    <div id="entitybuttons"><a href="{{ path('PersonalRevenueAdd') }}" class="button add">Add</a></div>
+    <h1>Personal revenues</h1>
     <script type="text/javascript">
 	    $(function() {
 	    	$(".entitytable").flexigrid({
 	        	url: '{{ path('IncomingInvoiceListData') }}',
 	            dataType: 'json',
 	            colModel : [
-	                {display: 'Number', name : 'expenseNumber', width : 50, sortable : true, align: 'left'},
+	                {display: 'Number', name : 'revenueNumber', width : 50, sortable : true, align: 'left'},
 	                {display: 'Title', name : 'title', width : 300, sortable : true, align: 'left'},
 	                {display: 'Category', name : 'category', width : 250, sortable : false, align: 'left'},
 	                {display: 'Date', name : 'date', width : 160, sortable : true, align: 'left'}
 	            ],
 	            searchitems : [
-	                {display: 'Number', name : 'expenseNumber', isdefault: true},
+	                {display: 'Number', name : 'revenueNumber', isdefault: true},
 	                {display: 'Title', name : 'title'}
 	            ],
-	            sortname: "expenseNumber",
+	            sortname: "revenueNumber",
 	            sortorder: "asc",
 	            usepager: true,
 	            useRp: true,
@@ -33,7 +33,7 @@
 		});
 
 	    $('.flexigrid tr[id*="row"]').live('click', function(){
-	    	window.location = '{{ path('PersonalExpenseList') }}' + $(this).attr('id').substr(3);
+	    	window.location = '{{ path('PersonalRevenueList') }}' + $(this).attr('id').substr(3);
 	    });
     </script>
     

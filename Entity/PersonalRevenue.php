@@ -9,11 +9,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="dcim_personalexpenses")
- * @DoctrineAssert\UniqueEntity("expenseNumber")
+ * @ORM\Table(name="dcim_personalrevenues")
+ * @DoctrineAssert\UniqueEntity("revenueNumber")
  * @DoctrineAssert\UniqueEntity("slug")
  */
-class PersonalExpense
+class PersonalRevenue
 {
 	/**
 	 * @ORM\Id
@@ -60,7 +60,7 @@ class PersonalExpense
 	protected $payed;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Category",inversedBy="personalExpenses")
+	 * @ORM\ManyToOne(targetEntity="Category",inversedBy="personalRevenues")
 	 * @Assert\Type(type="Dellaert\DCIMBundle\Entity\Category")
 	 */
 	protected $category;
@@ -69,7 +69,7 @@ class PersonalExpense
 	 * @ORM\Column(type="string", length=255, unique=true)
 	 * @Assert\NotBlank()
 	 */
-	protected $expenseNumber;
+	protected $revenueNumber;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
@@ -79,7 +79,7 @@ class PersonalExpense
 
 	/**
 	 * @ORM\Column(name="slug", type="string", length=255, unique=true)
-	 * @Gedmo\Slug(fields={"expenseNumber", "title"})
+	 * @Gedmo\Slug(fields={"revenueNumber", "title"})
 	 * 
 	 * @var string
 	 */
@@ -161,7 +161,7 @@ class PersonalExpense
 	 */
 	public function getFileDir()
 	{
-		return __DIR__.'/../../../../data/personalexpenses/'.$this->getDate()->format('Y').'-'.$this->getExpenseNumber().'/';
+		return __DIR__.'/../../../../data/personalrevenues/'.$this->getDate()->format('Y').'-'.$this->getRevenueNumber().'/';
 	}
 
 	/**
@@ -189,7 +189,7 @@ class PersonalExpense
 	 * Set createdAt
 	 *
 	 * @param \DateTime $createdAt
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setCreatedAt($createdAt)
 	{
@@ -212,7 +212,7 @@ class PersonalExpense
 	 * Set updatedAt
 	 *
 	 * @param \DateTime $updatedAt
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setUpdatedAt($updatedAt)
 	{
@@ -235,7 +235,7 @@ class PersonalExpense
 	 * Set enabled
 	 *
 	 * @param boolean $enabled
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setEnabled($enabled)
 	{
@@ -258,7 +258,7 @@ class PersonalExpense
 	 * Set payed
 	 *
 	 * @param boolean $payed
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setPayed($payed)
 	{
@@ -278,14 +278,14 @@ class PersonalExpense
 	}
 
 	/**
-	 * Set expenseNumber
+	 * Set revenueNumber
 	 *
-	 * @param string $expenseNumber
-	 * @return PersonalExpense
+	 * @param string $revenueNumber
+	 * @return PersonalRevenue
 	 */
-	public function setExpenseNumber($expenseNumber)
+	public function setRevenueNumber($revenueNumber)
 	{
-		$this->expenseNumber = $expenseNumber;
+		$this->revenueNumber = $revenueNumber;
 	
 		return $this;
 	}
@@ -295,16 +295,16 @@ class PersonalExpense
 	 *
 	 * @return string 
 	 */
-	public function getExpenseNumber()
+	public function getRevenueNumber()
 	{
-		return $this->expenseNumber;
+		return $this->revenueNumber;
 	}
 
 	/**
 	 * Set title
 	 *
 	 * @param string $title
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setTitle($title)
 	{
@@ -327,7 +327,7 @@ class PersonalExpense
 	 * Set slug
 	 *
 	 * @param string $slug
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setSlug($slug)
 	{
@@ -350,7 +350,7 @@ class PersonalExpense
 	 * Set date
 	 *
 	 * @param \DateTime $date
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setDate($date)
 	{
@@ -373,7 +373,7 @@ class PersonalExpense
 	 * Set dueDate
 	 *
 	 * @param \DateTime $dueDate
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setDueDate($dueDate)
 	{
@@ -396,7 +396,7 @@ class PersonalExpense
 	 * Set amount
 	 *
 	 * @param float $amount
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setAmount($amount)
 	{
@@ -419,7 +419,7 @@ class PersonalExpense
 	 * Set filePath
 	 *
 	 * @param string $filePath
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setFilePath($filePath)
 	{
@@ -442,7 +442,7 @@ class PersonalExpense
 	 * Set file
 	 *
 	 * @param string $file
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setFile($file)
 	{
@@ -465,7 +465,7 @@ class PersonalExpense
 	 * Set createdBy
 	 *
 	 * @param \Dellaert\DCIMBundle\Entity\User $createdBy
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setCreatedBy(\Dellaert\DCIMBundle\Entity\User $createdBy = null)
 	{
@@ -488,7 +488,7 @@ class PersonalExpense
 	 * Set category
 	 *
 	 * @param \Dellaert\DCIMBundle\Entity\Category $category
-	 * @return PersonalExpense
+	 * @return PersonalRevenue
 	 */
 	public function setCategory(\Dellaert\DCIMBundle\Entity\Category $category = null)
 	{

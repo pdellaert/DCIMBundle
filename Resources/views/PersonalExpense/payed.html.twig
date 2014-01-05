@@ -4,13 +4,13 @@
 	{% if entity is defined %}
 	    <script type="text/javascript">
 	    setTimeout(function() {
-	    	  window.location.href = "{{ path('IncomingInvoiceViewSlug',{ 'slug': entity.slug }) }}";
+	    	  window.location.href = "{{ path('PersonalExpenseViewSlug',{ 'slug': entity.slug }) }}";
 	    	}, 1000);
 	    </script>
-	    <h1>Incoming invoice payed status changed: {{ entity.invoiceNumber }} - {{ entity.title }}</h1>
-	    <p>You will be returned to the incoming invoice's page in 1 second...</p>
+	    <h1>Personal expense payed status changed: {{ entity.expenseNumber }} - {{ entity.title }}</h1>
+	    <p>You will be returned to the personal expense's page in 1 second...</p>
     {% else %}
-		<h1>Unknown incoming invoice</h1>
-		<p>The specified incoming invoice is not available.</p>
+		<h1>Unknown personal expense</h1>
+		<p>The specified personal expense is not available.</p>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,40 @@
+PersonalRevenueList:
+    pattern: /
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:list}
+
+PersonalRevenueListData:
+    pattern: /listdata
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:listData}
+
+PersonalRevenueAdd:
+    pattern: /add/
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:add}
+
+PersonalRevenueEdit:
+    pattern: /edit/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:edit}
+    requirements:
+        id: \d+
+
+PersonalRevenueDelete:
+    pattern: /delete/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:delete}
+    requirements:
+        id: \d+
+
+PersonalRevenueViewSlug:
+    pattern: /{slug}
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:view}
+
+PersonalRevenueSetPayed:
+    pattern: /{status}/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:payed}
+    requirements:
+        status: payed|unpayed
+        id: \d+
+
+PersonalRevenueDownload:
+    pattern: /download/{id}
+    defaults: { _controller: DellaertDCIMBundle:PersonalRevenue:download}
+    requirements:
+        id: \d+

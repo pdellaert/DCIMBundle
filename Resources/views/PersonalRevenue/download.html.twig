@@ -1,0 +1,16 @@
+{% extends "DellaertDCIMBundle::layout.html.twig" %}
+
+{% block content %}
+	{% if entity is defined %}
+	    <script type="text/javascript">
+	    setTimeout(function() {
+	    	  window.location.href = "{{ path('PersonalRevenueViewSlug',{ 'slug': entity.slug }) }}";
+	    	}, 3000);
+	    </script>
+	    <h1>Personal revenue downloaded: {{ entity.revenueNumber }} - {{ entity.title }}</h1>
+	    <p>You will be returned to the personal revenue's page in 3 seconds...</p>
+    {% else %}
+		<h1>Unknown personal revenue</h1>
+		<p>The specified personal revenue is not available.</p>
+    {% endif %}
+{% endblock %}
