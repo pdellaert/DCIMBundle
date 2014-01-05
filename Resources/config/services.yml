@@ -3,6 +3,6 @@ parameters:
 
 services:
     dellaert_dcim.command.convert_ii_to_pe:
-        class: Dellaert\DCIMBundle\Command\ConvertIncommingInvoiceToPersonalExpense
+        class: Dellaert\DCIMBundle\Command\ConvertIncomingInvoiceToPersonalExpense
         tags:
             - { name: console.command }

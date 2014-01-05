@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Dellaert\DCIMBundle\Entity\IncommingInvoice;
 use Dellaert\DCIMBundle\Entity\PersonalExpense;
 
-class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
+class ConvertIncomingInvoiceToPersonalExpense extends ContainerAwareCommand
 {
 	protected function configure()
 	{
@@ -20,7 +20,13 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 				'number-start',
 				null,
 				InputOption::VALUE_REQUIRED,
-				'The value with which the Incomming invoice number has to start.'
+				'The value with which the Incoming invoice number has to start.'
+			)
+			->addOption(
+				'purge',
+				null,
+				InputOption::VALUE_NONE,
+				'Purge the converted Incoming invoices.'
 			)
 			->addOption(
 				'test',
@@ -35,6 +41,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 	{
 		// Handling options
 		$numberStart = $input->getOption('number-start');
+		$purge = $input->getOption('purge');
 		$test = $input->getOption('test');
 
 		$db = $this->getContainer()->get('doctrine');
@@ -45,6 +52,7 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 		$query = $qb->getQuery();
 		$results = $query->getResult();
 
+		$em = $db->getManager();
 		foreach( $results as $ii ) {
 			if($test) {
 				echo('Found Incoming Invoice: '.$ii->getInvoiceNumber().' - '.$ii->getTitle()."\n");
@@ -67,7 +75,6 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 			if($test) {
 				echo('Created Personal Expense: '.$pe->getExpenseNumber().' - '.$pe->getTitle()."\n");
 			} else {
-				$em = $db->getManager();
 				$em->persist($pe);
 				$em->flush();
 			}
@@ -79,6 +86,21 @@ class ConvertIncommingInvoiceToPersonalExpense extends ContainerAwareCommand
 					mkdir($pe->getFileDir());
 				}
 				copy($ii->getFileDir().$ii->getFilePath(),$pe->getFileDir().$pe->getFilePath());
+			}
+
+			if($purge) {
+				if($test) {
+					echo('Purging Incoming Invoice: '.$ii->getInvoiceNumber().' - '.$ii->getTitle()."\n");
+				} else {
+					$em->remove($entity);
+					$em->flush();
+				}
+
+				if($test) {
+					echo('Deleting file '.$ii->getFileDir().$ii->getFilePath()."\n");
+				} else {
+					$em->postRemove();
+				}
 			}
 
 			if($test) {
