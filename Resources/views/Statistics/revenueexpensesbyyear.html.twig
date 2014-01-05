@@ -172,6 +172,30 @@
 </script>
 <h2>{{ year }} overview</h2>
 <div id="revenueexpensesbyyeargraphs" style="width: 90%; height: 300px; margin: 0 auto;"></div>
+<h2>Expenses in {{ year }} per category</h2>
+<div id="expensesbyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
+<table cellspacing="0" class="sortable">
+	<thead>
+	 	<tr>
+			<th>Category</th>
+			<th width="12%" class="textright">Amount (w/o VAT)</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for category,value in inPerCategory %}
+			<tr>
+				<td>{{ category }}</td>
+				<td>{{ value }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4" class="textright"><b>Total</b></th>
+			<th class="textright">{{ inTotal }}</th>
+		</tr>
+	</tfoot>
+</table>
 <h2>Revenue in {{ year }}</h2>
 <div id="revenuebyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
 <table cellspacing="0" class="sortable">
@@ -199,36 +223,6 @@
 		<tr>
 			<th colspan="4" class="textright"><b>Total</b></th>
 			<th class="textright">{{ outTotal }}</th>
-		</tr>
-	</tfoot>
-</table>
-<h2>Expenses in {{ year }}</h2>
-<div id="expensesbyyeargraphs" style="width: 100%; height: 300px; margin: 0 auto;"></div>
-<table cellspacing="0" class="sortable">
-	<thead>
-	 	<tr>
-			<th>Number</th>
-			<th>Title</th>
-			<th>Category</th>
-			<th width="12%">Date</th>
-			<th width="12%" class="textright">Amount (w/o VAT)</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for invoice in inInvoices %}
-			<tr>
-				<td><a href="{{ path('IncomingInvoiceViewSlug', { 'slug': invoice.slug }) }}">{{ invoice.invoiceNumber }}</a></td>
-				<td>{{ invoice.title }}</td>
-				<td>{{ invoice.category.title }}</td>
-				<td>{{ invoice.date.format('Y-m-d') }}</td>
-				<td class="textright">{{ invoice.totalWoVAT }}</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-	<tfoot>
-		<tr>
-			<th colspan="4" class="textright"><b>Total</b></th>
-			<th class="textright">{{ inTotal }}</th>
 		</tr>
 	</tfoot>
 </table>
