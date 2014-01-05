@@ -84,17 +84,17 @@ class Category
 	protected $outgoingInvoices;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="incomingInvoice", mappedBy="category")
+	 * @ORM\OneToMany(targetEntity="IncomingInvoice", mappedBy="category")
 	 */
 	protected $incomingInvoices;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="personalExpense", mappedBy="category")
+	 * @ORM\OneToMany(targetEntity="PersonalExpense", mappedBy="category")
 	 */
 	protected $personalExpenses;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="personalRevenue", mappedBy="category")
+	 * @ORM\OneToMany(targetEntity="PersonalRevenue", mappedBy="category")
 	 */
 	protected $personalRevenues;
 	
