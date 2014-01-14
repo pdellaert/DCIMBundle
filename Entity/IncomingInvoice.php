@@ -592,4 +592,37 @@ class IncomingInvoice
 	{
 		return $this->targetCompany;
 	}
+
+    /**
+     * Add bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     * @return IncomingInvoice
+     */
+    public function addBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries[] = $bankAccountEntries;
+
+        return $this;
+    }
+
+    /**
+     * Remove bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     */
+    public function removeBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries->removeElement($bankAccountEntries);
+    }
+
+    /**
+     * Get bankAccountEntries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBankAccountEntries()
+    {
+        return $this->bankAccountEntries;
+    }
 }

@@ -646,4 +646,70 @@ class OutgoingInvoice
 	{
 		return $this->project;
 	}
+
+    /**
+     * Add entries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $entries
+     * @return OutgoingInvoice
+     */
+    public function addEntry(\Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $entries)
+    {
+        $this->entries[] = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Remove entries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $entries
+     */
+    public function removeEntry(\Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $entries)
+    {
+        $this->entries->removeElement($entries);
+    }
+
+    /**
+     * Get entries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+
+    /**
+     * Add bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     * @return OutgoingInvoice
+     */
+    public function addBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries[] = $bankAccountEntries;
+
+        return $this;
+    }
+
+    /**
+     * Remove bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     */
+    public function removeBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries->removeElement($bankAccountEntries);
+    }
+
+    /**
+     * Get bankAccountEntries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBankAccountEntries()
+    {
+        return $this->bankAccountEntries;
+    }
 }

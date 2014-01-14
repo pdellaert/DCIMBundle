@@ -362,4 +362,27 @@ class Issue
 	{
 		return $this->workentries;
 	}
+
+    /**
+     * Add workentries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\WorkEntry $workentries
+     * @return Issue
+     */
+    public function addWorkentry(\Dellaert\DCIMBundle\Entity\WorkEntry $workentries)
+    {
+        $this->workentries[] = $workentries;
+
+        return $this;
+    }
+
+    /**
+     * Remove workentries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\WorkEntry $workentries
+     */
+    public function removeWorkentry(\Dellaert\DCIMBundle\Entity\WorkEntry $workentries)
+    {
+        $this->workentries->removeElement($workentries);
+    }
 }

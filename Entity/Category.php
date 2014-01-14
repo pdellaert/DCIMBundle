@@ -425,4 +425,70 @@ class Category
 	{
 		return $this->parent;
 	}
+
+    /**
+     * Add children
+     *
+     * @param \Dellaert\DCIMBundle\Entity\Category $children
+     * @return Category
+     */
+    public function addChild(\Dellaert\DCIMBundle\Entity\Category $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Dellaert\DCIMBundle\Entity\Category $children
+     */
+    public function removeChild(\Dellaert\DCIMBundle\Entity\Category $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Add bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     * @return Category
+     */
+    public function addBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries[] = $bankAccountEntries;
+
+        return $this;
+    }
+
+    /**
+     * Remove bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     */
+    public function removeBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries->removeElement($bankAccountEntries);
+    }
+
+    /**
+     * Get bankAccountEntries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBankAccountEntries()
+    {
+        return $this->bankAccountEntries;
+    }
 }

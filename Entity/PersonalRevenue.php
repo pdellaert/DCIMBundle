@@ -515,4 +515,37 @@ class PersonalRevenue
 	{
 		return $this->category;
 	}
+
+    /**
+     * Add bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     * @return PersonalRevenue
+     */
+    public function addBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries[] = $bankAccountEntries;
+
+        return $this;
+    }
+
+    /**
+     * Remove bankAccountEntries
+     *
+     * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries
+     */
+    public function removeBankAccountEntry(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntries)
+    {
+        $this->bankAccountEntries->removeElement($bankAccountEntries);
+    }
+
+    /**
+     * Get bankAccountEntries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBankAccountEntries()
+    {
+        return $this->bankAccountEntries;
+    }
 }
