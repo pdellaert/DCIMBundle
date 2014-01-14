@@ -108,11 +108,20 @@ class PersonalRevenue
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	protected $filePath;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="BankAccountEntry", mappedBy="bankAccount")
+	 */
+	protected $bankAccountEntries;
 	
 	/**
 	 * @Assert\File(maxSize="104857600")
 	 */
 	protected $file;
+	
+	public function __construct() {
+		$this->bankAccountEntries = new ArrayCollection();
+	}
 	
 	public function preInsert()
 	{
@@ -505,5 +514,38 @@ class PersonalRevenue
 	public function getCategory()
 	{
 		return $this->category;
+	}
+
+	/**
+	 * Add BankAccountEntry
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry
+	 * @return BankAccountEntry
+	 */
+	public function addBankAccountEntries(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry)
+	{
+		$this->bankAccountEntries[] = $bankAccountEntry;
+	
+		return $this;
+	}
+
+	/**
+	 * Remove bankAccountEntry
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry
+	 */
+	public function removeBankAccountEntries(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry)
+	{
+		$this->bankAccountEntries->removeElement($bankAccountEntry);
+	}
+
+	/**
+	 * Get bankAccountEntries
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getBankAccountEntries()
+	{
+		return $this->bankAccountEntries;
 	}
 }

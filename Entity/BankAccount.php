@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -75,12 +76,21 @@ class BankAccount
 	protected $personal;
 
 	/**
+	 * @ORM\OneToMany(targetEntity="BankAccountEntry", mappedBy="bankAccount")
+	 */
+	protected $bankAccountEntries;
+
+	/**
 	 * @ORM\Column(name="slug", type="string", length=255, unique=true)
 	 * @Gedmo\Slug(fields={"accountNumber"})
 	 * 
 	 * @var string
 	 */
 	protected $slug;
+	
+	public function __construct() {
+		$this->bankAccountEntries = new ArrayCollection();
+	}
 	
 	public function preInsert()
 	{
@@ -285,5 +295,38 @@ class BankAccount
 	public function getCreatedBy()
 	{
 		return $this->createdBy;
+	}
+
+	/**
+	 * Add BankAccountEntry
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry
+	 * @return BankAccountEntry
+	 */
+	public function addBankAccountEntries(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry)
+	{
+		$this->bankAccountEntries[] = $bankAccountEntry;
+	
+		return $this;
+	}
+
+	/**
+	 * Remove bankAccountEntry
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry
+	 */
+	public function removeBankAccountEntries(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry)
+	{
+		$this->bankAccountEntries->removeElement($bankAccountEntry);
+	}
+
+	/**
+	 * Get bankAccountEntries
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getBankAccountEntries()
+	{
+		return $this->bankAccountEntries;
 	}
 }

@@ -146,9 +146,16 @@ class OutgoingInvoice
 	 * @ORM\OneToMany(targetEntity="OutgoingInvoiceEntry", mappedBy="outgoingInvoice")
 	 */
 	protected $entries;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="BankAccountEntry", mappedBy="bankAccount")
+	 */
+	protected $bankAccountEntries;
 	
 	public function __construct() {
 		$this->issues = new ArrayCollection();
+		$this->entries = new ArrayCollection();
+		$this->bankAccountEntries = new ArrayCollection();
 	}
 	
 	public function preInsert()
@@ -671,5 +678,38 @@ class OutgoingInvoice
 	public function getEntries()
 	{
 		return $this->entries;
+	}
+
+	/**
+	 * Add BankAccountEntry
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry
+	 * @return BankAccountEntry
+	 */
+	public function addBankAccountEntries(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry)
+	{
+		$this->bankAccountEntries[] = $bankAccountEntry;
+	
+		return $this;
+	}
+
+	/**
+	 * Remove bankAccountEntry
+	 *
+	 * @param \Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry
+	 */
+	public function removeBankAccountEntries(\Dellaert\DCIMBundle\Entity\BankAccountEntry $bankAccountEntry)
+	{
+		$this->bankAccountEntries->removeElement($bankAccountEntry);
+	}
+
+	/**
+	 * Get bankAccountEntries
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getBankAccountEntries()
+	{
+		return $this->bankAccountEntries;
 	}
 }
