@@ -102,13 +102,13 @@ class BankAccountEntry
 	 * @ORM\Column(nullable=true)
 	 * @Assert\Type(type="Dellaert\DCIMBundle\Entity\IncomingInvoice")
 	 */
-	protected $IncomingInvoice;
+	protected $incomingInvoice;
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="OutgoingInvoice",inversedBy="bankAccountEntries")
 	 * @ORM\Column(nullable=true)
 	 * @Assert\Type(type="Dellaert\DCIMBundle\Entity\OutgoingInvoice")
 	 */
-	protected $IncomingInvoice;
+	protected $outgoingInvoice;
 
 }
