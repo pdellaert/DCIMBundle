@@ -326,37 +326,4 @@ class OutgoingInvoiceEntry
 	{
 		return $this->parentEntry;
 	}
-
-	/**
-	 * Add subentries
-	 *
-	 * @param \Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $subentries
-	 * @return OutgoingInvoiceEntry
-	 */
-	public function addSubentrie(\Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $subentries)
-	{
-		$this->subentries[] = $subentries;
-	
-		return $this;
-	}
-
-	/**
-	 * Remove subentries
-	 *
-	 * @param \Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $subentries
-	 */
-	public function removeSubentrie(\Dellaert\DCIMBundle\Entity\OutgoingInvoiceEntry $subentries)
-	{
-		$this->subentries->removeElement($subentries);
-	}
-
-	/**
-	 * Get subentries
-	 *
-	 * @return \Doctrine\Common\Collections\Collection 
-	 */
-	public function getSubentries()
-	{
-		return $this->subentries;
-	}
 }
